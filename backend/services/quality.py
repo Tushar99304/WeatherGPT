@@ -42,6 +42,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from backend import config
 from backend.models import Evidence, Validation
+from backend.services import providers
 
 WEIGHTS = {"authority": 40, "freshness": 30, "completeness": 20, "agreement": 10}
 HIGH_MIN = 80
@@ -60,11 +61,27 @@ def _label_for(score: int) -> str:
     return "LOW"
 
 
+def _research_weather_source_name(ev: Evidence) -> str:
+    """Display name of the research/repro weather source (provider-agnostic), for note prose.
+    Reads the live sources[] rather than hardcoding one provider."""
+    names = [
+        s.name
+        for s in ev.sources
+        if s.type in COMPARABLE_SOURCE_TYPES and s.authority == "research_repro"
+    ]
+    if names:
+        return names[0]
+    return providers.source_label(config.WEATHER_PROVIDER)
+
+
 def _authority(ev: Evidence, v: Validation, notes: List[str]) -> float:
     """40 = official SACHET evidence is available for the question.
-    26 = the answer rests on a research/reanalysis blend (Open-Meteo) — reproducible and honestly
-         labelled, but not the national meteorological service.
-    12 = only derived values.  0 = nothing authoritative at all."""
+    26 = the answer rests on a research/reanalysis blend (e.g. the Open-Meteo NWP models) —
+         reproducible and honestly labelled, but not the national meteorological service.
+    12 = only derived values.  0 = nothing authoritative at all.
+
+    Provider-agnostic: the 26/12 bands are keyed on Source.authority, not on a provider name, so
+    any future provider (IMD/GFS/WRF via the registry) is scored by its own authority label."""
     intent = str(ev.request.get("intent") or "")
     weather_part = 0.0
     if any(s.authority == "research_repro" and s.type in COMPARABLE_SOURCE_TYPES for s in ev.sources):
@@ -88,24 +105,37 @@ def _authority(ev: Evidence, v: Validation, notes: List[str]) -> float:
         return 40.0
     if official_available and weather_part:
         notes.append(
-            f"authority {weather_part:.0f}/40 from Open-Meteo (research_repro); SACHET checked and "
-            "found nothing applicable, which does not add authority to the weather numbers"
+            f"authority {weather_part:.0f}/40 from {_research_weather_source_name(ev)} "
+            "(research_repro); SACHET checked and found nothing applicable, which does not add "
+            "authority to the weather numbers"
         )
         return weather_part
     if weather_part:
         notes.append(
-            f"authority {weather_part:.0f}/40: single research/reanalysis source. IMD is the intended "
-            "authoritative provider here; access is pending, and Open-Meteo is NOT relabelled official."
+            f"authority {weather_part:.0f}/40: single research/reanalysis source "
+            f"({_research_weather_source_name(ev)}). An official national meteorological provider "
+            "(IMD) is the intended authoritative source and remains architecture-ready, not "
+            "relabelled official; this NWP blend is NOT upgraded."
         )
     else:
         notes.append("authority 0/40: no source carrying an authority label is present")
     return weather_part
 
 
-def _freshness(ev: Evidence, v: Validation, notes: List[str]) -> float:
+def _freshness(
+    ev: Evidence, v: Validation, notes: List[str], now: Optional[dt.datetime] = None
+) -> float:
     """30 = well inside WEATHER_MAX_STALENESS_MIN for a 'now' answer; scaled down from there.
     A forecast-day answer is judged on retrieval age instead, because its values are supposed to
-    describe the future. Historical lookups are exempt by definition."""
+    describe the future. Historical lookups are exempt by definition.
+
+    `now` is the single reference clock (validation.reference_now; the frozen clock in tests).
+    Every age here must read it instead of dt.datetime.now(), so quality scores the SAME moment
+    validation judged — that mismatch was the alert-only freshness date-skew (a fixed SACHET check
+    read as days-old under the real clock, dropping a HIGH alert answer to MEDIUM)."""
+    from backend.services.validation import reference_now
+
+    ref = now or reference_now()
     full = float(WEIGHTS["freshness"])
     w = ev.weather
     if w is None:
@@ -116,7 +146,7 @@ def _freshness(ev: Evidence, v: Validation, notes: List[str]) -> float:
             if checked is None:
                 notes.append("freshness 12/30: alert check has no usable checked_at timestamp")
                 return full * 0.4
-            mins = max(0.0, (dt.datetime.now(dt.timezone.utc) - checked).total_seconds() / 60.0)
+            mins = max(0.0, (ref - checked).total_seconds() / 60.0)
             score = full if mins <= 15 else (full * 0.6 if mins <= 60 else full * 0.2)
             notes.append(
                 f"freshness {score:.0f}/30: no weather block is needed for this question; judged on "
@@ -139,7 +169,7 @@ def _freshness(ev: Evidence, v: Validation, notes: List[str]) -> float:
         if retrieved is None:
             notes.append("freshness 0/30: no parseable timestamp of any kind")
             return 0.0
-        mins = max(0.0, (dt.datetime.now(dt.timezone.utc) - retrieved).total_seconds() / 60.0)
+        mins = max(0.0, (ref - retrieved).total_seconds() / 60.0)
         score = full if mins <= limit else (full * 0.6 if mins <= 2 * limit else full * 0.2)
         notes.append(
             f"freshness {score:.0f}/30: no current block for this timeframe, judged on retrieval age "
@@ -239,15 +269,23 @@ def _parse(value: Optional[str]) -> Optional[dt.datetime]:
     return d if d.tzinfo else d.replace(tzinfo=dt.timezone.utc)
 
 
-def score_evidence(ev: Evidence, v: Validation) -> Tuple[str, Dict[str, Any]]:
+def score_evidence(
+    ev: Evidence, v: Validation, now: Optional[dt.datetime] = None
+) -> Tuple[str, Dict[str, Any]]:
     """Returns (label, quality_breakdown). Deterministic given the evidence + validation object:
-    the same Evidence always produces the same score, which is what makes it testable."""
+    the same Evidence always produces the same score, which is what makes it testable.
+
+    `now` defaults to the single reference clock (validation.reference_now); callers/tests may
+    inject a fixed instant, exactly as they do for validate_evidence()."""
+    from backend.services.validation import reference_now
+
+    ref = now or reference_now()
     notes: List[str] = []
     caps: List[str] = []
 
     parts = {
         "authority": _authority(ev, v, notes),
-        "freshness": _freshness(ev, v, notes),
+        "freshness": _freshness(ev, v, notes, ref),
         "completeness": _completeness(ev, v, notes),
         "agreement": 0.0,  # filled below (needs the disagreement list)
     }

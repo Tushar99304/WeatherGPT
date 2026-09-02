@@ -38,11 +38,12 @@ from backend.services import advisory as advisory_service
 from backend.services import evidence as evidence_service
 from backend.services import geocoding, parsing, weather
 from backend.services import llm as llm_service
+from backend.services import providers
 from backend.services import quality as quality_service
 from backend.services import validation
 from backend.services.http_client import UpstreamError
 
-APP_VERSION = "0.3.0-phase3"  # P1 retrieval · P2 SACHET alerts · P3 validation + Evidence Quality + advisory
+APP_VERSION = "0.4.0-phase5a"  # P1 retrieval · P2 SACHET alerts · P3 validation+quality+advisory · P4 grounded LLM · P5A provider registry
 
 app = FastAPI(
     title="WeatherGPT MVP",
@@ -84,6 +85,8 @@ async def health() -> Dict[str, Any]:
     return {
         "ok": True,
         "weather_provider": config.WEATHER_PROVIDER,
+        # Phase 5A: the full provider registry (live + architecture-ready stubs), secret-free.
+        "weather_providers": providers.providers_report(config.WEATHER_PROVIDER),
         # Phase 4: exactly three fields, no secret. `configured` is the only thing another
         # machine needs to know about the key's existence.
         "llm": {

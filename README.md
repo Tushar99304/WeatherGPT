@@ -1,6 +1,7 @@
 # WeatherGPT — SIH26068 Minimal Working Demo
 
-**Status: Phases 1–4 complete and tested live (156 passing tests, 143 of them offline).** The whole
+**Status: Phases 1–4 complete and tested live; Phase 5A (provider registry + model metadata) added.
+171 tests, 157 of them offline.** The whole
 pitch pipeline now runs: natural-language question → intent + location + timeframe → geocoding →
 live weather evidence → NDMA SACHET official alerts → validation → Evidence Quality → deterministic
 risk advisory → **grounded LLM explanation** → answer + source + timestamp, or a graceful
@@ -85,11 +86,12 @@ python scripts/demo_phase4.py             # 7 grounding cases: accept / hallucin
 ## 2. Tests
 
 ```bash
-python -m pytest tests                 # 157 tests: 143 offline logic + 14 live network
+python -m pytest tests                 # 171 tests: 157 offline logic + 14 live network
 python -m pytest tests -m "not live"   # no internet needed (hotel Wi-Fi / judges' laptop)
 python -m pytest tests -v -k alerts    # Phase 2 only
 python -m pytest tests -v -k phase3    # Phase 3 (validation / quality / advisory), all offline
 python -m pytest tests -v -k phase4    # Phase 4 (grounding checks + every LLM failure mode), offline
+python -m pytest tests -v -k phase5a   # Phase 5A (provider registry + model metadata), all offline
 node scripts/check_frontend_render.mjs # 7 render cases for the answer card, no backend needed
 python -m pytest tests -v -k geocoding # single area
 ```
@@ -126,7 +128,7 @@ checked and which were rejected, attempts, regeneration, `llm_status`, model and
   "location":  { "name": "Nagpur", "latitude": 21.14631, "longitude": 79.08491,
                  "admin1": "Maharashtra", "country": "India", "timezone": "Asia/Kolkata",
                  "resolution_note": "restricted to country IN (1 non-IN match ignored); same-named smaller places ignored..." },
-  "weather":   { "provider": "open-meteo", "kind": "live",
+  "weather":   { "provider": "open-meteo", "model": "best_match", "kind": "live",
                  "retrieved_at_utc": "2026-08-31T20:01:40Z",
                  "current":  { "time": "2026-09-01T01:30", "temperature_c": 25.5, "apparent_temperature_c": 28.3,
                                "precipitation_mm": 0.0, "wind_speed_kmh": 11.7, "condition": "Overcast",
@@ -190,7 +192,8 @@ must credit a source that appears in this list or it is thrown away.
 | `LLM_ENABLED` / `LLM_MAX_TOKENS` / `LLM_TEMPERATURE` / `LLM_JSON_MODE` / `LLM_TIMEOUT_S` / `LLM_MAX_ATTEMPTS` | Phase 4 | the whole LLM contract: kill switch, output budget, `0.0` for reproducibility, `response_format=json_object`, 30 s ceiling, first answer + exactly one regeneration |
 | `SIMULATE_LLM_FAILURE` | Phase 4 | acts like api.groq.com being dead → `upstream_error` → fallback answer, endpoint stays available |
 | `SIMULATE_LLM_HALLUCINATION` | Phase 4 | injects `987.6 °C / 12345 %` (numbers absent from the evidence) so the guard can be shown firing on demand |
-| `WEATHER_PROVIDER` | Phase 1 | `open-meteo` today; `imd` later (see §6) |
+| `WEATHER_PROVIDER` | Phase 1/5A | provider registry key. **`open-meteo`** = CURRENT/live (implemented). **`imd` / `gfs` / `wrf`** = registered **architecture-ready stubs** — discoverable in the registry and `/health`, but `fetch()` raises the standard `UpstreamError` (honest abstain/fallback), never fabricating data (see §6) |
+| `OPEN_METEO_MODEL` | Phase 5A | optional single Open-Meteo NWP model (`models=` param); empty ⇒ Open-Meteo's `best_match`. Reported on `weather.model` / `/health`. NOT multi-model ensemble retrieval; archive (historical) calls ignore it |
 | `OPEN_METEO_FORECAST_URL` / `OPEN_METEO_ARCHIVE_URL` / `OPEN_METEO_GEOCODING_URL` | Phase 1 | endpoints, overridable for offline/replay testing |
 | `GEO_COUNTRY_BIAS` | Phase 1 | `IN` by default; empty allows any country |
 | `GEO_MAX_RESULTS`, `AMBIGUITY_MIN_POP` | Phase 1 | ambiguity detection (§7) |
@@ -210,19 +213,58 @@ No key is required for Phases 1–2: Open-Meteo (weather + geocoding) and NDMA S
 CAP/RSS feed are all key-free. (`api.ndmainsafe.in` is *not* used — it does not resolve here;
 SACHET's public RSS + `FetchXMLFile` CAP documents are the working path.)
 
-## 6. IMD: designed-in, not faked
+## 6. Weather providers: a registry, not a rewrite (Phase 5A)
 
-`backend/services/weather.py` defines a `WeatherProvider` protocol; `get_provider()` is the only
-place that decides which provider answers. Adding IMD later = new `IMDProvider.fetch()` +
-`WEATHER_PROVIDER=imd`. Routes, validation, evidence builder, prompt and UI stay untouched.
+Weather retrieval goes through the same `WeatherProvider` protocol in `backend/services/weather.py`
+it always did. Phase 5A moved provider **selection and metadata** into a small data-driven registry
+under `backend/services/providers/`, and made the rest of the pipeline provider-agnostic (the
+weather `Source` name/authority come from the registry; validation/quality no longer hardcode the
+word "Open-Meteo").
 
-Honest line for the panel: *"IMD is our intended primary Indian meteorological source and is being
-integrated once API access is approved. This build retrieves live evidence from Open-Meteo and
-official disaster alerts from NDMA SACHET; the source label on every answer states that plainly."*
+```
+backend/services/providers/
+├── __init__.py     # exports the registry API + stub classes
+├── registry.py     # ProviderInfo catalogue + create_provider() factory + /health report
+└── stubs.py        # IMDStubProvider / GFSStubProvider / WRFStubProvider (architecture-ready)
+```
 
-Related honesty detail already implemented: `sources[].authority = "research_repro"` for
-Open-Meteo (a model/reanalysis blend, **not** station observations) and `"official"` for SACHET
-alerts. The badge never upgrades a research source to an official one.
+Provider status, stated plainly (and surfaced in `GET /health` → `weather_providers`):
+
+| Key | Label | Status in this build | Source authority |
+| --- | --- | --- | --- |
+| `open-meteo` | Open-Meteo | **CURRENT / live** — forecast + archive (reanalysis) | `research_repro` |
+| `imd` | IMD | **ARCHITECTURE-READY stub** — API access pending approval | `official` *when live* |
+| `gfs` | NOAA GFS | **ARCHITECTURE-READY stub** — direct adapter not wired* | `research_repro` |
+| `wrf` | WRF | **ARCHITECTURE-READY stub** — no local grid/endpoint in build | `research_repro` |
+
+\* GFS fields *can* already be reached **through** Open-Meteo by setting `OPEN_METEO_MODEL=gfs_seamless`
+(Open-Meteo acts as a documented, key-free proxy); a direct GFS (THREDDS/OpenDAP) adapter is not wired.
+
+`get_provider()` (still the single call site the pipeline uses) delegates to
+`providers.create_provider(WEATHER_PROVIDER)`:
+
+* **`open-meteo`** returns the working `OpenMeteoProvider` — behaviour unchanged.
+* **`imd` / `gfs` / `wrf`** return stub providers. They satisfy the same interface but `fetch()`
+  raises the project's standard `UpstreamError` — exactly what a live upstream outage raises — so
+  the pipeline abstains honestly, the LLM is never asked to invent numbers, Evidence Quality goes
+  LOW and the advisory UNCERTAIN. Nothing is presented as live data.
+* an **unknown** key is a selection-time `RuntimeError` listing the registered providers.
+
+**Model metadata (additive).** `WeatherBundle` now carries `model` (e.g. `best_match`, an explicit
+`OPEN_METEO_MODEL` value, or `reanalysis_archive` for historical calls). It is shown on the weather
+evidence/source; it does **not** change the grounding contract — the LLM still only sees the
+Evidence object, and numbers are still verified against it.
+
+Honest line for the panel: *"Open-Meteo is our live weather evidence provider today; IMD is our
+intended authoritative national source and, with GFS and WRF, is an architecture-ready slot in a
+provider registry — none of them are faked as live. This build retrieves live evidence from
+Open-Meteo and official disaster alerts from NDMA SACHET; the source label on every answer states
+that plainly."*
+
+Related honesty detail: `sources[].authority = "research_repro"` for Open-Meteo (a model/reanalysis
+blend, **not** station observations) and `"official"` for SACHET alerts. The badge never upgrades a
+research source to an official one — a weather provider earns `official` only when a real
+meteorological service is wired behind its registry key.
 
 ## 7. Four decisions worth explaining under questioning
 
@@ -305,7 +347,10 @@ weathergpt-mvp/
 │       ├── http_client.py      # timeouts, retry, UpstreamError -> abstain
 │       ├── geocoding.py        # place -> coordinates, ambiguity + fallback rules
 │       ├── parsing.py          # rule-based intent/timeframe/location extraction
-│       ├── weather.py          # WeatherProvider protocol + Open-Meteo provider
+│       ├── weather.py          # WeatherProvider protocol + Open-Meteo provider + get_provider()
+│       ├── providers/          # Phase 5A: provider registry + imd/gfs/wrf stubs (see §6)
+│       │   ├── registry.py     #   ProviderInfo catalogue + factory + /health report
+│       │   └── stubs.py        #   architecture-ready IMD/GFS/WRF providers (raise UpstreamError)
 │       ├── alerts.py           # Phase 2: SACHET RSS + CAP parse, recency, relevance ladder, TTL cache
 │       ├── validation.py       # Phase 3: location/freshness/values/labelling/completeness/alerts
 │       ├── quality.py          # Phase 3: Evidence Quality weights + caps + per-part breakdown

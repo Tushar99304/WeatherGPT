@@ -20,6 +20,7 @@ from backend.models import (
     Source,
     WeatherBundle,
 )
+from backend.services import providers
 
 STALE_IF_NOT_RETRIEVED_S = 600  # our own retrieval age, separate from provider timestamp age
 
@@ -118,20 +119,31 @@ def build_evidence(
         period = (
             f"{days[0].date}..{days[-1].date}" if len(days) > 1 else (days[0].date if days else None)
         )
+        # Provider-agnostic (Phase 5A): the weather Source's name/authority come from the
+        # provider registry (services/providers/), never a hardcoded "Open-Meteo". The geocoding
+        # source above is a distinct service and stays labelled Open-Meteo Geocoding regardless of
+        # which weather provider is selected.
+        provider_key = weather.provider or config.WEATHER_PROVIDER
+        src_name = providers.source_label(provider_key)
+        src_authority = providers.source_authority(provider_key)  # research_repro at best; never upgraded
+        model_used = weather.model or providers.active_model(provider_key)
+        model_clause = f" model={model_used}." if model_used else ""
+        note = (
+            f"Live weather from {src_name} (NWP model/reanalysis blend), provider key "
+            f"{provider_key!r};{model_clause} An official national meteorological source (IMD) is "
+            "the intended primary; its connector is architecture-ready, not live, and this "
+            "blend is never relabelled official. 'current' is 15-min cadence model data."
+        )
         ev.sources.append(
             Source(
-                name="Open-Meteo",
+                name=src_name,
                 # A past-date lookup is historical evidence, never "current weather".
                 type="historical" if weather.kind == "historical" else "forecast",
                 timestamp=primary_ts,
                 period=period,
                 url=weather.request_url,
-                authority="research_repro",
-                note=(
-                    "IMD is the intended primary Indian source; API access pending approval. "
-                    "This build uses Open-Meteo (model reanalysis blend) as the live provider."
-                ),
-                # 'current' block is 15-min cadence model data; label it as such, not observed-station.
+                authority=src_authority,  # type: ignore[arg-type]
+                note=note,
             )
         )
 
@@ -154,4 +166,5 @@ def build_evidence(
 
 
 def provider_label() -> str:
-    return "Open-Meteo" if config.WEATHER_PROVIDER == "open-meteo" else config.WEATHER_PROVIDER
+    """Human Source name for the active weather provider (registry-backed, Phase 5A)."""
+    return providers.source_label(config.WEATHER_PROVIDER)

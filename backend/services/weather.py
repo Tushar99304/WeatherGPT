@@ -250,6 +250,13 @@ class OpenMeteoProvider:
             params.pop("forecast_days")
             params["start_date"] = target_date
             params["end_date"] = target_date
+        model_name = ""
+        if getattr(config, "OPEN_METEO_MODEL", ""):
+            # Phase 5A: OPTIONAL single-model selection. Empty (default) => omit the param and let
+            # Open-Meteo serve "best_match". This is NOT multi-model ensemble retrieval (out of
+            # scope); only one model is requested and it is recorded on the bundle.
+            params["models"] = config.OPEN_METEO_MODEL.strip()
+            model_name = config.OPEN_METEO_MODEL.strip()
         data = await get_json(config.OPEN_METEO_FORECAST_URL, params=params, service="open-meteo")
         return self._bundle(
             data,
@@ -258,6 +265,7 @@ class OpenMeteoProvider:
             params=params,
             url=config.OPEN_METEO_FORECAST_URL,
             target_date=target_date,
+            model=model_name,
         )
 
     # ---------------- historical (yesterday / specific date) ----------------
@@ -303,6 +311,7 @@ class OpenMeteoProvider:
         params: Dict[str, Any],
         url: str,
         target_date: Optional[str] = None,
+        model: str = "",
     ) -> WeatherBundle:
         offset = data.get("utc_offset_seconds")
         cur_raw = data.get("current") or {}
@@ -348,8 +357,13 @@ class OpenMeteoProvider:
             today = tomorrow = None
 
         requested = [*self.CURRENT_VARS, *self.DAILY_VARS]
+        # Report WHICH NWP model produced these numbers (Phase 5A). Live forecast = the explicit
+        # OPEN_METEO_MODEL if set, else Open-Meteo's "best_match". Historical archive rows are
+        # reanalysis, not a forecast model — labelled honestly and never pretending otherwise.
+        reported_model = model if model else ("best_match" if kind == "live" else "reanalysis_archive")
         return WeatherBundle(
             provider=self.name,
+            model=reported_model,
             kind=kind,  # type: ignore[arg-type]
             requested_timeframe=timeframe,
             retrieved_at_utc=_utc_now()
@@ -428,14 +442,15 @@ _PROVIDER: Optional[WeatherProvider] = None
 
 
 def get_provider() -> WeatherProvider:
-    """Factory used by the router. IMDProvider will land here in Phase 6+."""
+    """Factory used by the router.
+
+    Phase 5A: selection lives in the data-driven registry (services/providers/). "open-meteo"
+    is the only LIVE provider; "imd"/"gfs"/"wrf" are registered architecture-ready stubs that
+    raise the project's UpstreamError on fetch (-> abstain/fallback, never fabricated data).
+    This function stays the single call site the pipeline uses, so no route changed."""
     global _PROVIDER
     if _PROVIDER is None:
-        chosen = (config.WEATHER_PROVIDER or "open-meteo").lower()
-        if chosen != "open-meteo":
-            raise RuntimeError(
-                f"WEATHER_PROVIDER={chosen!r} is not implemented yet "
-                "(IMD connector is pending API approval - see README 'Provider swap')."
-            )
-        _PROVIDER = OpenMeteoProvider()
+        from backend.services import providers
+
+        _PROVIDER = providers.create_provider(config.WEATHER_PROVIDER)
     return _PROVIDER
