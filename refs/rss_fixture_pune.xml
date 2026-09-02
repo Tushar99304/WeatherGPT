@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet title="XSL_formatting" type="text/xsl" href="feed.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maharashtra: CAP Disaster Alert Feeds</title>
+    <description>CAP Integrated Alert System Warning Updates</description>
+    <language>en</language>
+    <link>https://sachet.ndma.gov.in/cap_public_website/rss/rss_maharashtra.xml</link>
+    <atom:link href="https://sachet.ndma.gov.in/cap_public_website/rss/rss_maharashtra.xml" rel="self" type="application/rss+xml"/>
+    <copyright>public domain</copyright>
+    <pubDate>Fri, 17 Jul 2026 10:46:42 GMT</pubDate>
+    <item>
+      <title>पुढील ३ तासात पुणे आणि सातारा जिल्ह्यात घाट परिसरात काही ठिकाणी हलक्या ते मध्यम स्वरूपाचा पाऊस पडण्याची दाट शक्यता आहे. मंत्रालय, मुंबई</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1787913209058029</link>
+      <author>controlroom@ndma.gov.in (IMD Mumbai)</author>
+      <guid isPermaLink="false">1787913209058029</guid>
+      <pubDate>Fri, 28 Aug 2026 11:10:59 GMT</pubDate>
+    </item><item>
+      <title>पुढील ३ तासात मुंबई शहर, रत्नागिरी, रायगड, अहिल्यानगर, पुणे घाट परिसर या भागातील काही ठिकाणी हलक्या ते मध्यम स्वरूपाच्या पावसाची शक्यता आहे. मंत्रालय, मुंबई</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1787827049357029</link>
+      <author>controlroom@ndma.gov.in (IMD Mumbai)</author>
+      <guid isPermaLink="false">1787827049357029</guid>
+      <pubDate>Thu, 27 Aug 2026 12:28:17 GMT</pubDate>
+    </item><item>
+      <title>पुढील ३ तासात ठाणे, रायगड आणि पुणे व सातारा जिल्ह्यात घाट परिसरात काही ठिकाणी हलका ते मध्यम स्वरूपाचा पाऊस पडण्याची दाट शक्यता आहे. मंत्रालय, मुंबई</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1787546092152029</link>
+      <author>controlroom@ndma.gov.in (IMD Mumbai)</author>
+      <guid isPermaLink="false">1787546092152029</guid>
+      <pubDate>Mon, 24 Aug 2026 04:53:35 GMT</pubDate>
+    </item>  </channel>
+</rss>

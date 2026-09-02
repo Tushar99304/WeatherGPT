@@ -1,0 +1,46 @@
+<cap:alert xmlns:cap="urn:oasis:names:tc:emergency:cap:1.2">
+<cap:identifier>IN-1788205224883023_23</cap:identifier>
+<cap:sender>Dadra-and-Nagar-Haveli-and-Daman-and-Diu-SDMA</cap:sender>
+<cap:sent>2026-09-01T01:14:11+05:30</cap:sent>
+<cap:status>Actual</cap:status>
+<cap:msgType>Update</cap:msgType>
+<cap:scope>Public</cap:scope>
+<cap:restriction/>
+<cap:addresses/>
+<cap:note/>
+<cap:references>IMD-Ahmedabad,IN-1788205224883023_49,2026-09-01T01:10:03+05:30</cap:references>
+<cap:incidents/>
+<cap:info>
+<cap:language>en-IN</cap:language>
+<cap:category>Met</cap:category>
+<cap:event>Light Rain</cap:event>
+<cap:urgency>Expected</cap:urgency>
+<cap:severity>Moderate</cap:severity>
+<cap:certainty>Likely</cap:certainty>
+<cap:audience>1</cap:audience>
+<cap:effective>2026-09-01T01:09:00+05:30</cap:effective>
+<cap:onset>2026-09-01T01:14:11+05:30</cap:onset>
+<cap:expires>2026-09-01T04:09:00+05:30</cap:expires>
+<cap:headline>Light rain is very likely to occur at isolated places over Dadra Nagar Haveli and Daman districts in next 3 hours.</cap:headline>
+<cap:description/>
+<cap:instruction>Please follow SDMA guidelines.</cap:instruction>
+<cap:contact/>
+<cap:parameter>
+<cap:valueName>Polygon URL</cap:valueName>
+<cap:value>https://sachet.ndma.gov.in/cap_public_website/FetchPolygonXMLFile?identifier=1788205224883023</cap:value>
+</cap:parameter>
+<cap:area>
+<cap:areaDesc>Dadra And Nagar Haveli district of Dadra and Nagar Haveli and Daman and Diu</cap:areaDesc>
+<cap:geocode>
+<cap:valueName>LGD District Code</cap:valueName>
+<cap:value>463</cap:value>
+</cap:geocode>
+<cap:geocode>
+<cap:valueName>LGD District Code</cap:valueName>
+<cap:value>465</cap:value>
+</cap:geocode>
+<cap:altitude>0</cap:altitude>
+<cap:ceiling>0</cap:ceiling>
+</cap:area>
+</cap:info>
+</cap:alert>

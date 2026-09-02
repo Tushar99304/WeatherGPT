@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet title="XSL_formatting" type="text/xsl" href="feed.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>All India: CAP Disaster Alert Feeds</title>
+    <description>CAP Integrated Alert System Warning Updates</description>
+    <language>en</language>
+    <link>https://sachet.ndma.gov.in/cap_public_website/rss/rss_india.xml</link>
+    <atom:link href="https://sachet.ndma.gov.in/cap_public_website/rss/rss_india.xml" rel="self" type="application/rss+xml"/>
+    <copyright>public domain</copyright>
+    <pubDate>Fri, 17 Jul 2026 10:46:48 GMT</pubDate>
+    <item>
+      <title>अगले 3 घंटों में आपके ज़िलों और आस-पास के इलाकों में कुछ जगहों पर मध्यम से तेज़ बारिश होने की बहुत संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788205553225013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788205553225013</guid>
+      <pubDate>Mon, 31 Aug 2026 19:48:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light rain is very likely to occur at isolated places over Dadra Nagar Haveli and Daman districts in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788205224883023</link>
+      <author>controlroom@ndma.gov.in (IMD Ahmedabad)</author>
+      <guid isPermaLink="false">1788205224883023</guid>
+      <pubDate>Mon, 31 Aug 2026 19:44:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Rain,Thunderstorm and Lightning  is very likely to occur at many places over Mayurbhanj in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788205361926012</link>
+      <author>controlroom@ndma.gov.in (IMD Bhubaneswar)</author>
+      <guid isPermaLink="false">1788205361926012</guid>
+      <pubDate>Mon, 31 Aug 2026 19:42:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light Rain is very likely to occur at isolated places over Dadra And Nagar Haveli, Daman, Navsari, The Dangs, Valsad in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788205225091020</link>
+      <author>controlroom@ndma.gov.in (IMD Ahmedabad)</author>
+      <guid isPermaLink="false">1788205225091020</guid>
+      <pubDate>Mon, 31 Aug 2026 19:40:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटो में आपके क्षेत्र में कुछ स्थानों में मध्यम वर्षा तथा कही-कही भारी वर्षा / आकाशीय बिजली चमकने  के साथ वर्षा के तीव्र से अति तीव्र दौर होने की संभावना है |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788204946036009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788204946036009</guid>
+      <pubDate>Mon, 31 Aug 2026 19:39:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में रीवा,मऊगंज,सीधी,सिंगरौली,सतना,मैहर,शहडोल,अनुपपुर,अशोकनगर,गुना,शिवपुरी,टीकमगढ़,निवाड़ी,पन्ना,छतरपुर,विदिशा में हल्की गरज के साथ बिजली/मध्यम बारिश जारी रहने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788203781954021</link>
+      <author>controlroom@ndma.gov.in (IMD Bhopal)</author>
+      <guid isPermaLink="false">1788203781954021</guid>
+      <pubDate>Mon, 31 Aug 2026 19:24:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3–4 घंटों में देहरादून जिले के कुछ जलग्रहण क्षेत्रों और उनके आसपास के स्थानों पर कहीं-कहीं निम्न से मध्यम स्तर के त्वरित बाढ़ का खतरा होने की संभावना हैं |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788203928983009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788203928983009</guid>
+      <pubDate>Mon, 31 Aug 2026 19:20:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of West Midnapore district during next 2-3 hours from 00:29, 01-09-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788202803638017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788202803638017</guid>
+      <pubDate>Mon, 31 Aug 2026 19:06:22 GMT</pubDate>
+    </item>
+    <item>
+      <title>River Kamla Balan at Jhanjarpur in Madhubani district of Bihar continues to flow in above normal flood situation at 12:00 am today.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788203107324016</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788203107324016</guid>
+      <pubDate>Mon, 31 Aug 2026 19:05:08 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorm  lightning accompanied with intense rain and gusty wind with speed 30-40 kmph. very likely to continue over some parts of Darjeeling, Kalimpong, Jalpaiguri, Coochbehar, Alipurduar, North Dinajpur districts during next 2-3 hours from 00:12, 01-09-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788201726048017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788201726048017</guid>
+      <pubDate>Mon, 31 Aug 2026 18:45:11 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light Thunderstorm  and rain with surface wind ( gusting upto 30 -40 kmph )  is very likely to occur at isolated places over Chatra, Deoghar, Dhanbad, East Singhbum, Garhwa, Giridih, Gumla, Hazaribagh, Jamtara, Koderma, Latehar, Lohardaga, Palamu, Simdega, West Singhbhum in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788200703689027</link>
+      <author>controlroom@ndma.gov.in (IMD Ranchi)</author>
+      <guid isPermaLink="false">1788200703689027</guid>
+      <pubDate>Mon, 31 Aug 2026 18:25:07 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorms and rain  with surface wind ( gusting upto 30 -40 kmph ) is very likely to occur at a few places over Bokaro, Khunti, Ramgarh, Ranchi, Saraikela Kharsawan in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788200561006027</link>
+      <author>controlroom@ndma.gov.in (IMD Ranchi)</author>
+      <guid isPermaLink="false">1788200561006027</guid>
+      <pubDate>Mon, 31 Aug 2026 18:22:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of East Midnapore, Howrah, Hooghly, North 24 Parganas districts during next 2-3 hours from 23:45, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788200227652017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788200227652017</guid>
+      <pubDate>Mon, 31 Aug 2026 18:19:20 GMT</pubDate>
+    </item>
+    <item>
+      <title>ଆଜି ରାତି ୧୦:୦୦ ଟାରେ ଓଡ଼ିଶାର ବାଲେଶ୍ୱର ଜିଲ୍ଲାର ମଥାନି ରୋଡ୍ ସେତୁଠାରେ ଜଳକା ନଦୀ ଗମ୍ଭୀର ବନ୍ୟା ପରିସ୍ଥିତିରେ ପ୍ରବାହିତ ହେଉଛି।ଏଥିପ୍ରତି ସତର୍କ ରହିବାକୁ ଅନୁରୋଧ । SRC, Odisha</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788194704278012</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788194704278012</guid>
+      <pubDate>Mon, 31 Aug 2026 17:50:59 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of Kolkata, North 24 Parganas districts during next 2-3 hours from 22:56, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788197376934017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788197376934017</guid>
+      <pubDate>Mon, 31 Aug 2026 17:31:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में प्रतापगढ़, प्रयागराज और पीलीभीत के कुछ इलाकों में मध्यम से तेज़ बारिश होने की बहुत संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788196099053013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788196099053013</guid>
+      <pubDate>Mon, 31 Aug 2026 17:10:57 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 03 घंटो में बागेश्वेर, पिथौरागढ़, देहरादून, टिहरी, पौड़ी, नैनीताल तथा उधमसिंह नगर जनपदों के कुछ स्थानों में मध्यम वर्षा तथा कही-कही वर्षा के तीव्र से अति तीव्र दौर होने की संभावना |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788195474508009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788195474508009</guid>
+      <pubDate>Mon, 31 Aug 2026 17:01:46 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light Rain is very likely to occur at isolated places over Dadra And Nagar Haveli, Daman, Navsari, The Dangs, Valsad in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788194673342020</link>
+      <author>controlroom@ndma.gov.in (IMD Ahmedabad)</author>
+      <guid isPermaLink="false">1788194673342020</guid>
+      <pubDate>Mon, 31 Aug 2026 16:53:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light rain is very likely to occur at isolated places over Dadra Nagar Haveli and Daman districts in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788194671859023</link>
+      <author>controlroom@ndma.gov.in (IMD Ahmedabad)</author>
+      <guid isPermaLink="false">1788194671859023</guid>
+      <pubDate>Mon, 31 Aug 2026 16:47:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों (21:50 PM से 00:50 PM) के दौरान आपके क्षेत्र के कुछ जगहों पर मेघगर्जन/ वज्रपात और 30-40 किमी/घंटा की रफ्तार से हवा चलने एवं हल्की से मध्यम वर्षा होने की प्रबल संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788193974657016</link>
+      <author>controlroom@ndma.gov.in (IMD Patna)</author>
+      <guid isPermaLink="false">1788193974657016</guid>
+      <pubDate>Mon, 31 Aug 2026 16:35:45 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में टीकमगढ़, छतरपुर, पन्ना, सतना, रीवा, सीधी, सिंगरौली, शहडोल, उमरिया, कटनी, दमोह, सागर,   नरसिंहपुर में हल्की गरज के साथ बिजली/मध्यम बारिश जारी रहने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788193355522021</link>
+      <author>controlroom@ndma.gov.in (IMD Bhopal)</author>
+      <guid isPermaLink="false">1788193355522021</guid>
+      <pubDate>Mon, 31 Aug 2026 16:33:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of Jhargram district during next 2-3 hours from 21:56, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788193576966017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788193576966017</guid>
+      <pubDate>Mon, 31 Aug 2026 16:28:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to continue over some parts of Purulia district during next 2-3 hours from 21:41, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788192672969017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788192672969017</guid>
+      <pubDate>Mon, 31 Aug 2026 16:13:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of South 24 Parganas district during next 2-3 hours from 21:24, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788191652834017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788191652834017</guid>
+      <pubDate>Mon, 31 Aug 2026 16:08:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>Due to continuous increase of water level of River Ranganadi at N H Crossing Ranganadi in Lakhimpur district of Assam, Citizens are advised to stay away from the river. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788191641256010</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788191641256010</guid>
+      <pubDate>Mon, 31 Aug 2026 16:00:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>Due to continuous increase of water level of River Dhansiri (S) at Numaligarh in Golaghat district of Assam, Citizens are advised to stay away from the river. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788191641097010</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788191641097010</guid>
+      <pubDate>Mon, 31 Aug 2026 15:59:06 GMT</pubDate>
+    </item>
+    <item>
+      <title>Due to continuous increase of water level of River Brahmaputra at Dibrugarh in Dibrugarh district of Assam, Citizens are advised to stay away from the river. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788191639867010</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788191639867010</guid>
+      <pubDate>Mon, 31 Aug 2026 15:57:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में हरदोई, लखीमपुर खीरी, लखनऊ, सीतापुर ज़िलों और आस-पास के इलाकों में कुछ जगहों पर मध्यम से तेज़ बारिश होने की बहुत संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788191591521013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788191591521013</guid>
+      <pubDate>Mon, 31 Aug 2026 15:55:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorm  lightning accompanied with intense rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of Darjeeling, Kalimpong, Jalpaiguri, Coochbehar, Alipurduar, North Dinajpur districts during next 2-3 hours from 21:17, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788191243989017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788191243989017</guid>
+      <pubDate>Mon, 31 Aug 2026 15:49:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में अंबेडकर नगर, बलिया, बलरामपुर, बस्ती, देवरिया, गोरखपुर, कुशीनगर, महाराजगंज, संत कबीर नगर, श्रावस्ती, सिद्धार्थ नगर में कुछ स्थानों पर मध्यम से तीव्र बारिश होने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788191174033013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788191174033013</guid>
+      <pubDate>Mon, 31 Aug 2026 15:48:32 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of West Midnapore district during next 2-3 hours from 21:05, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788190468322017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788190468322017</guid>
+      <pubDate>Mon, 31 Aug 2026 15:36:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>उत्तर प्रदेश के बदायूँ ज़िले में कछला पुल पर गंगा नदी आज रात 8:00 बजे भी सामान्य से ऊपर बाढ़ की स्थिति में बह रही है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788190037378013</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788190037378013</guid>
+      <pubDate>Mon, 31 Aug 2026 15:30:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light Thunderstorm and rain  with surface wind ( gusting upto 30-40 kmph )  is very likely to occur at isolated places over Bokaro, Chatra, Deoghar, Dhanbad, East Singhbum, Garhwa, Giridih, Hazaribagh, Jamtara, Koderma, Latehar, Palamu, Simdega in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788189844935027</link>
+      <author>controlroom@ndma.gov.in (IMD Ranchi)</author>
+      <guid isPermaLink="false">1788189844935027</guid>
+      <pubDate>Mon, 31 Aug 2026 15:24:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 2 घंटो में नैनीताल तथा उधमसिंह नगर जनपदों में कुछ स्थानो मे मध्यम से भारी  वर्षा / गर्जन के साथ आकाशीय बिजली चमकने तथा वर्षा के तीव्र से अति तीव्र दौर आकाशीय बिजली चमकने की संभावना है |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788189691021009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788189691021009</guid>
+      <pubDate>Mon, 31 Aug 2026 15:22:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorms and rain  with surface wind ( gusting upto 30-40 kmph )  is very likely to occur at a few places over Gumla, Khunti, Lohardaga, Ramgarh, Ranchi, Saraikela Kharsawan, West Singhbhum in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788189743385027</link>
+      <author>controlroom@ndma.gov.in (IMD Ranchi)</author>
+      <guid isPermaLink="false">1788189743385027</guid>
+      <pubDate>Mon, 31 Aug 2026 15:22:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of East Midnapore district during next 2-3 hours from 20:25, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788188199706017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788188199706017</guid>
+      <pubDate>Mon, 31 Aug 2026 15:04:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of Malda, South Dinajpur districts during next 2-3 hours from 19:59, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788186858576017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788186858576017</guid>
+      <pubDate>Mon, 31 Aug 2026 14:37:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of Bankura district during next 2-3 hours from 19:55, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788186506878017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788186506878017</guid>
+      <pubDate>Mon, 31 Aug 2026 14:30:27 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में अंबेडकर नगर, अयोध्या, बलरामपुर, बस्ती, गोंडा, संत कबीर नगर, सिद्धार्थ नगर, सुल्तानपुर ज़िलों और आस-पास के इलाकों में कुछ जगहों पर मध्यम से तेज़ बारिश होने की बहुत संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788185997678013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788185997678013</guid>
+      <pubDate>Mon, 31 Aug 2026 14:22:08 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में लखीमपुर खीरी, पीलीभीत, सीतापुर, लखनऊ, रायबरेली, उन्नाव ज़िलों और आस-पास के इलाकों में कुछ जगहों पर मध्यम से तेज़ बारिश होने की बहुत संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788185759086013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788185759086013</guid>
+      <pubDate>Mon, 31 Aug 2026 14:17:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में औरैया, इटावा, फतेहपुर, हमीरपुर, हरदोई, जालौन, कन्नौज, कानपुर देहात, कानपुर नगर, उन्नाव जिलों और आसपास के क्षेत्रों में कुछ स्थानों पर मध्यम से तीव्र बारिश होने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788185558211013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788185558211013</guid>
+      <pubDate>Mon, 31 Aug 2026 14:14:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>ଭାରତ ପାଣିପାଗ ବିଭାଗର ତଥ୍ୟ ଅନୁଯାୟୀ, ଆଗାମୀ ତିନି ଘଣ୍ଟା ମଧ୍ୟରେ ଆପଣଙ୍କ ଅଞ୍ଚଳରେ ମଧ୍ୟମ ଧରଣର ଘଡ଼ଘଡ଼ି, ବିଜୁଳି ଏବଂ ବର୍ଷା ହେବାର ସମ୍ଭାବନା ରହିଛି । ଏଥିପ୍ରତି ସତର୍କ ରହିବାକୁ ଅନୁରୋଧ । SRC, Odisha</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788185272949012</link>
+      <author>controlroom@ndma.gov.in (IMD Bhubaneswar)</author>
+      <guid isPermaLink="false">1788185272949012</guid>
+      <pubDate>Mon, 31 Aug 2026 14:11:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light Thunderstorm and lightning accompanied rain with surface wind is likely to occur at isolated places over Bokaro, Deoghar, Dhanbad, Giridih, Jamtara, Koderma in next 3 hours. Disaster Management Department Ranchi Jharkhand.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788178613287027</link>
+      <author>controlroom@ndma.gov.in (IMD Ranchi)</author>
+      <guid isPermaLink="false">1788178613287027</guid>
+      <pubDate>Mon, 31 Aug 2026 13:56:50 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorm and lightning accompanied rain with surface wind is very likely to occur at a few places over Chatra, East Singhbum, Garhwa, Gumla, Hazaribagh, Khunti, Latehar, Lohardaga, Palamu, Ramgarh, Ranchi, Saraikela Kharsawan, Simdega, West Singhbhum in next 3 hours. Disaster Management Dept.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788178485142027</link>
+      <author>controlroom@ndma.gov.in (IMD Ranchi)</author>
+      <guid isPermaLink="false">1788178485142027</guid>
+      <pubDate>Mon, 31 Aug 2026 13:55:26 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 12 घंटों के दौरान आपके क्षेत्र के कुछ जलग्रहण क्षेत्रों एवं उनसे लगे आसपास के स्थानों पर कहीं-कहीं निम्न से मध्यम स्तर के त्वरित बाढ़ का खतरा होने की संभावना हैं |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788184276787009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788184276787009</guid>
+      <pubDate>Mon, 31 Aug 2026 13:52:49 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में बाराबंकी, लखनऊ ज़िलों और आस-पास के इलाकों में कुछ जगहों पर बिजली और गरज के साथ भारी बारिश होने की बहुत संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788183750621013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788183750621013</guid>
+      <pubDate>Mon, 31 Aug 2026 13:46:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>2026/08/31 18:57 अगले 3 घंटे में, आपके क्षेत्र में , कुछ स्थानों में गर्जन के साथ आकाशीय बिजली चमकने/बहुत हल्की से हल्की वर्षा एवं वर्षा के तीव्र दौर होने की संभावना है |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788183087952009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788183087952009</guid>
+      <pubDate>Mon, 31 Aug 2026 13:37:40 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में देहरादून,हरिद्वार,पौड़ी,टिहरी,अल्मोड़ा, बागेश्वर,चंपावत और नैनीताल में हल्की से मध्यम बारिश और कुछ जगहों पर बिजली कड़कने के साथ आंधी-तूफान या बहुत तेज़ बारिश होने की संभावना ह</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788183087214009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788183087214009</guid>
+      <pubDate>Mon, 31 Aug 2026 13:36:21 GMT</pubDate>
+    </item>
+    <item>
+      <title>Due to continuous increase of water level of River Beki at Beki NH Crossing in Barpeta district of Assam, Citizens are advised to stay away from the river. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788183150525010</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788183150525010</guid>
+      <pubDate>Mon, 31 Aug 2026 13:34:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में हल्की गरज के साथ बिजली चमकने/मध्यम बारिश होने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788182653667021</link>
+      <author>controlroom@ndma.gov.in (IMD Bhopal)</author>
+      <guid isPermaLink="false">1788182653667021</guid>
+      <pubDate>Mon, 31 Aug 2026 13:26:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>Due to continuous increase of water level of River Katakhal at Matizuri in Hailakandi district of Assam, Citizens are advised to stay away from the river. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788182293373010</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788182293373010</guid>
+      <pubDate>Mon, 31 Aug 2026 13:19:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light Rain is likely to occur at isolated places over Bastar, Bijapur, Dantewada, Gariyaband, Kanker, Kondagaon, Narayanpur in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788182355048018</link>
+      <author>controlroom@ndma.gov.in (IMD Raipur)</author>
+      <guid isPermaLink="false">1788182355048018</guid>
+      <pubDate>Mon, 31 Aug 2026 13:19:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>IMD Guwahati has issued forecast for Moderate Thunderstorms with Lightning and light to moderate rain which is very likely to occur at a few places over Goalpara, Kamrup, Kamrup Metropolitan and Nalbari in next 3 hours. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788182102756010</link>
+      <author>controlroom@ndma.gov.in (IMD Guwahati)</author>
+      <guid isPermaLink="false">1788182102756010</guid>
+      <pubDate>Mon, 31 Aug 2026 13:17:56 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Rain is likely to occur at isolated places over Balod, Balodabazar, Balrampur, Bemetara, Bilaspur, Dhamtari, Durg,GPM,  Janjgir-Champa, Jashpur, Kabeerdham,KCG,  Korba, Koriya, Mahasamund,MMAC, MCB,Mungeli, Raigarh, Raipur, Rajnandgaon, Sakti,SB, Surajpur, Surguja in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788182055409018</link>
+      <author>controlroom@ndma.gov.in (IMD Raipur)</author>
+      <guid isPermaLink="false">1788182055409018</guid>
+      <pubDate>Mon, 31 Aug 2026 13:14:17 GMT</pubDate>
+    </item>
+    <item>
+      <title>River Tista at Mekhliganj in Coochbehar district of West Bengal continues to flow in above normal flood situation at 6:00 pm today.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788181157089017</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788181157089017</guid>
+      <pubDate>Mon, 31 Aug 2026 13:00:40 GMT</pubDate>
+    </item>
+    <item>
+      <title>Due to continuous increase of water level of River Brahmaputra at Neamatighat in Jorhat district of Assam, Citizens are advised to stay away from the river. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788181094932010</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788181094932010</guid>
+      <pubDate>Mon, 31 Aug 2026 13:00:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorm  lightning accompanied with intense rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of Purulia district during next 2-3 hours from 18:20, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788180714821017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788180714821017</guid>
+      <pubDate>Mon, 31 Aug 2026 12:58:12 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 2 घंटों में लखनऊ के कुछ इलाकों में हल्की से मध्यम बारिश के साथ गरज-चमक (और कुछ जगहों पर बहुत तेज़ बारिश) होने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788180761078013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788180761078013</guid>
+      <pubDate>Mon, 31 Aug 2026 12:55:01 GMT</pubDate>
+    </item>
+    <item>
+      <title>Due to continuous increase of water level of River Brahmaputra at Neamatighat in Jorhat district of Assam, Citizens are advised to stay away from the river. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788180696691010</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788180696691010</guid>
+      <pubDate>Mon, 31 Aug 2026 12:54:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>River Baitarni at Akhuapada in Bhadrak district of Odisha continues to flow in above normal flood situation at 6:00 pm today.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788180576089012</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788180576089012</guid>
+      <pubDate>Mon, 31 Aug 2026 12:49:37 GMT</pubDate>
+    </item>
+    <item>
+      <title>River Ganga at Farakka in Murshidabad district of West Bengal continues to flow in severe flood situation at 6:00 pm today.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788180248122017</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788180248122017</guid>
+      <pubDate>Mon, 31 Aug 2026 12:49:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों (06:00 PM TO 09:00 PM)  के दौरान आपके क्षेत्र के कुछ जगहों पर  मेघगर्जन/ वज्रपात और 30-40 किमी/घंटा की रफ्तार से हवा चलने एवं हल्की से मध्यम वर्षा होने की प्रबल संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788179974019016</link>
+      <author>controlroom@ndma.gov.in (IMD Patna)</author>
+      <guid isPermaLink="false">1788179974019016</guid>
+      <pubDate>Mon, 31 Aug 2026 12:46:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>River Bagmati at Benibad in Muzaffarpur district of Bihar continues to flow in above normal flood situation at 6:00 pm today.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788180129594016</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788180129594016</guid>
+      <pubDate>Mon, 31 Aug 2026 12:42:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>Thunderstorm/Lightning with Heavy to Very Heavy Rain is very likely to occur at isolated places over East Khasi Hills, South West Khasi Hills in next 24 hours. Citizens are advised to be cautious. IMD, SDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788178589924035</link>
+      <author>controlroom@ndma.gov.in (IMD Shillong)</author>
+      <guid isPermaLink="false">1788178589924035</guid>
+      <pubDate>Mon, 31 Aug 2026 12:36:39 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में बाराबंकी और लखनऊ के कुछ इलाकों में हल्की से मध्यम बारिश के साथ गरज-चमक (कुछ जगहों पर तेज़ बारिश) होने की बहुत संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788178527329013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788178527329013</guid>
+      <pubDate>Mon, 31 Aug 2026 12:25:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>Thunderstorm/Lightning with Heavy Rain is very likely to occur  at isolated places over East Jaintia Hills, South Garo Hills, West Jaintia Hills in next 24 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788178590213035</link>
+      <author>controlroom@ndma.gov.in (IMD Shillong)</author>
+      <guid isPermaLink="false">1788178590213035</guid>
+      <pubDate>Mon, 31 Aug 2026 12:16:31 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में सहारनपुर और बिजनौर के कुछ इलाकों में मध्यम से तेज़ बारिश के साथ बिजली कड़कने और आंधी-तूफान की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788176862026013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788176862026013</guid>
+      <pubDate>Mon, 31 Aug 2026 11:49:29 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में हरदोई, कन्नौज, कानपुर नगर, उन्नाव, बलरामपुर, बस्ती, गोंडा, संत कबीर नगर और सिद्धार्थ नगर में कुछ जगहों पर मध्यम से तेज़ बारिश के साथ बिजली कड़कने और आंधी-तूफान की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788176565471013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788176565471013</guid>
+      <pubDate>Mon, 31 Aug 2026 11:44:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light Rain is very likely to occur at isolated places over Dadra And Nagar Haveli, Daman, Diu, Ahmedabad, Amreli, Arvalli, Banas Kantha, Bharuch, Gandhinagar, Gir Somnath, Kachchh, Mahesana, Narmada, Navsari, Patan, Sabar Kantha, Surat, Tapi, The Dangs, Valsad in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788172759588020</link>
+      <author>controlroom@ndma.gov.in (IMD Ahmedabad)</author>
+      <guid isPermaLink="false">1788172759588020</guid>
+      <pubDate>Mon, 31 Aug 2026 11:41:28 GMT</pubDate>
+    </item>
+    <item>
+      <title>ଭାରତ ପାଣିପାଗ ବିଭାଗର ତଥ୍ୟ ଅନୁଯାୟୀ, ଆଗାମୀ ତିନି ଘଣ୍ଟା ମଧ୍ୟରେ ଆପଣଙ୍କ ଅଞ୍ଚଳରେ ମଧ୍ୟମ ଧରଣର ଘଡ଼ଘଡ଼ି, ବିଜୁଳି ଏବଂ ବର୍ଷା ହେବାର ସମ୍ଭାବନା ରହିଛି । ଏଥିପ୍ରତି ସତର୍କ ରହିବାକୁ ଅନୁରୋଧ । SRC, Odisha</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788173594289012</link>
+      <author>controlroom@ndma.gov.in (IMD Bhubaneswar)</author>
+      <guid isPermaLink="false">1788173594289012</guid>
+      <pubDate>Mon, 31 Aug 2026 11:38:10 GMT</pubDate>
+    </item>
+    <item>
+      <title>2026/08/31 16:53 अगले 2 घंटो के दौरान, आपके क्षेत्र में, कुछ स्थानों पर मध्यम वर्षा एवं कहीं-कहीं गर्जन के साथ आकाशीय बिजली चमकने/वर्षा के तीव्र से अति तीव्र दौर होने की संभवना हैं I</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788175626796009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788175626796009</guid>
+      <pubDate>Mon, 31 Aug 2026 11:28:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorms with Light to Moderate Rain is very likely to occur at a few places over Eastern West Khasi Hills, East Khasi Hills, Ri Bhoi, West Khasi Hills in next 3 hours. Citizens are to be cautious. IMD, SDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788174081913035</link>
+      <author>controlroom@ndma.gov.in (IMD Shillong)</author>
+      <guid isPermaLink="false">1788174081913035</guid>
+      <pubDate>Mon, 31 Aug 2026 11:21:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>River Kamla Balan at Jhanjarpur in Madhubani district of Bihar continues to flow in above normal flood situation at 4:00 pm today.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788173294831016</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788173294831016</guid>
+      <pubDate>Mon, 31 Aug 2026 10:48:16 GMT</pubDate>
+    </item>
+    <item>
+      <title>IMD Guwahati has issued forecast for Thunderstorms with Lightning and light to moderate rain which is very likely to occur at isolated places over Hailakandi, Kamrup, Kamrup Metropolitan and Sribhumi in next 1-2 hours. Issued in Public Interest by ASDMA.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788173027144010</link>
+      <author>controlroom@ndma.gov.in (IMD Guwahati)</author>
+      <guid isPermaLink="false">1788173027144010</guid>
+      <pubDate>Mon, 31 Aug 2026 10:46:34 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light rain is very likely to occur at isolated places over Dadra Nagar Haveli, Daman and Diu districts in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788172758531023</link>
+      <author>controlroom@ndma.gov.in (IMD Ahmedabad)</author>
+      <guid isPermaLink="false">1788172758531023</guid>
+      <pubDate>Mon, 31 Aug 2026 10:43:52 GMT</pubDate>
+    </item>
+    <item>
+      <title>2026/08/31 16:03 अगले 3 घंटे में, आपके क्षेत्र में ,कहीं कहीं गर्जन के साथ आकाशीय बिजली चमकने/बहुत हल्की से हल्की वर्षा एवं वर्षा के तीव्र दौर होने की संभावना है |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788172576155009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788172576155009</guid>
+      <pubDate>Mon, 31 Aug 2026 10:39:24 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to Moderate Rain accompanied with Light Thunderstorm and Lightning is very likely to occur at a few places over Unakoti in next 30 Minutes.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788172635088015</link>
+      <author>controlroom@ndma.gov.in (IMD Agartala)</author>
+      <guid isPermaLink="false">1788172635088015</guid>
+      <pubDate>Mon, 31 Aug 2026 10:38:43 GMT</pubDate>
+    </item>
+    <item>
+      <title>2026/08/31 16:01 अगले 3 घंटो के दौरान, आपके क्षेत्र में, कुछ स्थानों पर मध्यम वर्षा एवं कहीं-कहीं गर्जन के साथ आकाशीय बिजली चमकने/वर्षा के तीव्र से अति तीव्र दौर होने की संभवना हैं I</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788172575062009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788172575062009</guid>
+      <pubDate>Mon, 31 Aug 2026 10:37:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of Murshidabad district during next 2-3 hours from 15:50, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788172305182017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788172305182017</guid>
+      <pubDate>Mon, 31 Aug 2026 10:35:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Thunderstorm  lightning accompanied with light to moderate rain and gusty wind with speed kmph. very likely to affect over some parts of West Burdwan, Birbhum districts during next 2-3 hours from 15:30, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788172134113017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788172134113017</guid>
+      <pubDate>Mon, 31 Aug 2026 10:34:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में अलग-अलग स्थानों पर हल्की गरज के साथ बिजली गिरने/मध्यम बारिश होने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788171193825021</link>
+      <author>controlroom@ndma.gov.in (IMD Bhopal)</author>
+      <guid isPermaLink="false">1788171193825021</guid>
+      <pubDate>Mon, 31 Aug 2026 10:16:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>River Kosi at Basua in Supaul district of Bihar continues to flow in above normal flood situation at 3:00 pm today.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788169957173016</link>
+      <author>controlroom@ndma.gov.in (CWC)</author>
+      <guid isPermaLink="false">1788169957173016</guid>
+      <pubDate>Mon, 31 Aug 2026 09:52:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>KHAWCHIN: Tun atanga darkar 24 chhung hian Mizoram hmun hrang hrangah, Ruah sur, Tek tla awm thei a ni. Issued by DMR Mizoram Source: Indian Meteorological Department.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788169777188032</link>
+      <author>controlroom@ndma.gov.in (Mizoram SDMA)</author>
+      <guid isPermaLink="false">1788169777188032</guid>
+      <pubDate>Mon, 31 Aug 2026 09:51:44 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों (03:00 PM TO 06:00 PM)  के दौरान आपके क्षेत्र के कुछ जगहों पर  मेघगर्जन/ वज्रपात और 40-50 किमी/घंटा की रफ्तार से हवा चलने एवं  वर्षा होने की प्रबल संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788169504079016</link>
+      <author>controlroom@ndma.gov.in (IMD Patna)</author>
+      <guid isPermaLink="false">1788169504079016</guid>
+      <pubDate>Mon, 31 Aug 2026 09:45:14 GMT</pubDate>
+    </item>
+    <item>
+      <title>ଭାରତ ପାଣିପାଗ ବିଭାଗର ତଥ୍ୟ ଅନୁଯାୟୀ, ଆଗାମୀ ତିନି ଘଣ୍ଟା ମଧ୍ୟରେ ଆପଣଙ୍କ ଅଞ୍ଚଳରେ ମଧ୍ୟମ ଧରଣର ଘଡ଼ଘଡ଼ି, ବିଜୁଳି ଏବଂ ବର୍ଷା ହେବାର ସମ୍ଭାବନା ରହିଛି । ଏଥିପ୍ରତି ସତର୍କ ରହିବାକୁ ଅନୁରୋଧ । SRC, Odisha</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788167864452012</link>
+      <author>controlroom@ndma.gov.in (IMD Bhubaneswar)</author>
+      <guid isPermaLink="false">1788167864452012</guid>
+      <pubDate>Mon, 31 Aug 2026 09:39:54 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Rain accompanied with light Thunderstorm and lightning  is very likely to occur/continue at a few places over Khowai, West Tripura in next 30 min to 1 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788169016543015</link>
+      <author>controlroom@ndma.gov.in (IMD Agartala)</author>
+      <guid isPermaLink="false">1788169016543015</guid>
+      <pubDate>Mon, 31 Aug 2026 09:39:51 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light Thunderstorms and rain is likely to occur at isolated places over Balod, Bastar, Bemetara, Bilaspur, Dhamtari, Durg, Gariyaband, GPM, Kabeerdham, Kanker, Khairgarh Chhuikhadan Gandai, Kondagaon, Koriya, , MCB,Mohla Manpur Ambagarh Chouki, Mungeli, Narayanpur, Raipur, Rajnandgaon in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788167955405018</link>
+      <author>controlroom@ndma.gov.in (IMD Raipur)</author>
+      <guid isPermaLink="false">1788167955405018</guid>
+      <pubDate>Mon, 31 Aug 2026 09:19:18 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में बहराइच, बाराबंकी, लखीमपुर खीरी, लखनऊ और सीतापुर के कुछ इलाकों में गरज-चमक के साथ मध्यम से तेज़ बारिश (कुछ जगहों पर बहुत तेज़ बारिश) होने की बहुत संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788167644464013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788167644464013</guid>
+      <pubDate>Mon, 31 Aug 2026 09:16:30 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorms and rain is likely to occur at isolated places over Balodabazar, Balrampur, Janjgir-Champa, Jashpur, Korba, Mahasamund, Raigarh, Sakti, Sarangarh Bilaigarh, Surajpur, Surguja in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788167642227018</link>
+      <author>controlroom@ndma.gov.in (IMD Raipur)</author>
+      <guid isPermaLink="false">1788167642227018</guid>
+      <pubDate>Mon, 31 Aug 2026 09:14:03 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorm  lightning accompanied with intense rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of West Midnapore, Bankura, Purulia districts during next 2-3 hours from 14:25, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788166824067017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788166824067017</guid>
+      <pubDate>Mon, 31 Aug 2026 09:07:02 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorm  lightning accompanied with intense rain and gusty wind with speed 30-40 kmph. very likely to affect over some parts of Nadia, East Burdwan districts during next 2-3 hours from 14:20, 31-08-2026.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788166497098017</link>
+      <author>controlroom@ndma.gov.in (IMD Kolkata)</author>
+      <guid isPermaLink="false">1788166497098017</guid>
+      <pubDate>Mon, 31 Aug 2026 08:59:58 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Rain accompanied with light thunderstorm and lightning is very likely to continue at a few places over Gomati, North Tripura, Sepahijala, South Tripura for next 1-2 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788165944806015</link>
+      <author>controlroom@ndma.gov.in (IMD Agartala)</author>
+      <guid isPermaLink="false">1788165944806015</guid>
+      <pubDate>Mon, 31 Aug 2026 08:47:15 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों में बलिया और गाज़ीपुर के कुछ इलाकों में गरज और बिजली के साथ मध्यम से तेज़ बारिश होने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788163678803013</link>
+      <author>controlroom@ndma.gov.in (IMD Lucknow)</author>
+      <guid isPermaLink="false">1788163678803013</guid>
+      <pubDate>Mon, 31 Aug 2026 08:42:35 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 3 घंटों (02:00 PM TO 05:00 PM)  के दौरान आपके क्षेत्र के कुछ जगहों पर  मेघगर्जन/ वज्रपात और 30-40 किमी/घंटा की रफ्तार से हवा चलने एवं हल्की से मध्यम वर्षा होने की प्रबल संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788165190559016</link>
+      <author>controlroom@ndma.gov.in (IMD Patna)</author>
+      <guid isPermaLink="false">1788165190559016</guid>
+      <pubDate>Mon, 31 Aug 2026 08:35:47 GMT</pubDate>
+    </item>
+    <item>
+      <title>कहीं-कहीं गर्जन के साथ आकाशीय बिजली चमकने एवं वर्षा के तीव्र से अति तीव्र दौर होने की संभावना है |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788163920215009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788163920215009</guid>
+      <pubDate>Mon, 31 Aug 2026 08:17:38 GMT</pubDate>
+    </item>
+    <item>
+      <title>कहीं-कहीं भारी वर्षा/गर्जन के साथ आकाशीय बिजली चमकने एवं वर्षा के तीव्र से अति तीव्र दौर होने की संभावना है |</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788163919559009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788163919559009</guid>
+      <pubDate>Mon, 31 Aug 2026 08:16:36 GMT</pubDate>
+    </item>
+    <item>
+      <title>Light to moderate Rain accompanied with Light thunderstorm and lightning is very likely to occur/continue  at a few places over Dhalai, Gomati, North Tripura, Sepahijala, South Tripura, West Tripura in next 30 min to 1 hour.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788164031146015</link>
+      <author>controlroom@ndma.gov.in (IMD Agartala)</author>
+      <guid isPermaLink="false">1788164031146015</guid>
+      <pubDate>Mon, 31 Aug 2026 08:16:09 GMT</pubDate>
+    </item>
+    <item>
+      <title>अगले 24 घंटों में  देहरादून, बागेश्वर, चमोली और नैनीताल ज़िलों में कुछ जगहों पर भारी से बहुत भारी बारिश/तूफ़ान के साथ बिजली गिरने और बहुत तेज़ से लेकर बेहद तेज़ बारिश होने की संभावना है।</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788163919001009</link>
+      <author>controlroom@ndma.gov.in (IMD Dehradun)</author>
+      <guid isPermaLink="false">1788163919001009</guid>
+      <pubDate>Mon, 31 Aug 2026 08:15:23 GMT</pubDate>
+    </item>
+    <item>
+      <title>Moderate Thunderstorm and lightning accompanied rain with surface wind is very likely to occur at many places over Chatra, Garhwa, Palamu, Simdega in next 3 hours.</title>
+      <description/>
+      <category>Met</category>
+      <link>https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=1788163174112027</link>
+      <author>controlroom@ndma.gov.in (IMD Ranchi)</author>
+      <guid isPermaLink="false">1788163174112027</guid>
+      <pubDate>Mon, 31 Aug 2026 07:59:36 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

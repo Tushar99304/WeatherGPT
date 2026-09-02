@@ -1,0 +1,361 @@
+<!doctype html>
+<!--
+  frontend/index.html — WeatherGPT MVP demo surface (built for Phase 2, deliberately minimal).
+
+  Plain HTML/CSS/JS, no framework, no CDN, no build step: served straight from "/" by
+  backend/main.py (which already mounts ./frontend). Every number on this page is read from the
+  Evidence object the backend produced; nothing here is computed, phrased or invented client-side
+  beyond labels. Natural-language ANSWER phrasing is Phase 4 (Groq), and the Evidence Quality badge
+  is Phase 3 — both are shown as explicitly "not yet computed" instead of being faked.
+
+  Network calls are relative ("/api/...") so it works behind the preview proxy and on localhost.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WeatherGPT — grounded weather &amp; SACHET alerts</title>
+    <style>
+      :root {
+        --bg: #0e1420; --panel: #16202f; --panel2: #1b2839; --line: #263548;
+        --ink: #e8eef7; --dim: #93a4bb; --accent: #5cc8ff;
+        --ok: #35d07f; --warn: #ffc14d; --bad: #ff6b6b; --official: #ff8a4c;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; background: var(--bg); color: var(--ink);
+        font: 15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif;
+      }
+      header {
+        padding: 16px 22px; border-bottom: 1px solid var(--line);
+        display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+        background: linear-gradient(180deg, #16202f, #131c29);
+      }
+      header h1 { font-size: 17px; margin: 0; letter-spacing: .3px; }
+      header .tag { color: var(--dim); font-size: 12px; }
+      main { max-width: 1080px; margin: 0 auto; padding: 20px 22px 60px; }
+      form { display: flex; gap: 10px; }
+      input[type=text] {
+        flex: 1; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line);
+        background: var(--panel2); color: var(--ink); font-size: 15px;
+      }
+      input[type=text]:focus { outline: 2px solid var(--accent); border-color: transparent; }
+      button {
+        padding: 12px 18px; border-radius: 10px; border: 0; background: var(--accent);
+        color: #06121d; font-weight: 700; cursor: pointer; font-size: 14px;
+      }
+      button[disabled] { opacity: .55; cursor: wait; }
+      .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 4px; }
+      .chip {
+        font-size: 12px; padding: 6px 10px; border-radius: 999px; cursor: pointer;
+        border: 1px solid var(--line); background: var(--panel); color: var(--dim);
+      }
+      .chip:hover { color: var(--ink); border-color: var(--accent); }
+      .banner {
+        margin-top: 16px; padding: 13px 15px; border-radius: 10px; border: 1px solid var(--line);
+        background: var(--panel); display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+      }
+      .pill { font-size: 11px; padding: 3px 9px; border-radius: 999px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; }
+      .p-ok { background: rgba(53,208,127,.15); color: var(--ok); }
+      .p-warn { background: rgba(255,193,77,.15); color: var(--warn); }
+      .p-bad { background: rgba(255,107,107,.15); color: var(--bad); }
+      .p-dim { background: rgba(147,164,187,.12); color: var(--dim); }
+      .p-official { background: rgba(255,138,76,.16); color: var(--official); }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; margin-top: 14px; }
+      .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+      .card h2 { font-size: 12px; margin: 0 0 10px; letter-spacing: 1.1px; text-transform: uppercase; color: var(--dim); }
+      .kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 14px; }
+      .kv b { font-weight: 600; color: var(--dim); }
+      .big { font-size: 30px; font-weight: 700; line-height: 1.1; }
+      .note { color: var(--dim); font-size: 12.5px; margin-top: 8px; }
+      .alert-item { border-left: 3px solid var(--official); padding: 10px 12px; margin: 10px 0; background: var(--panel2); border-radius: 0 8px 8px 0; }
+      .alert-item.expired { border-left-color: var(--line); opacity: .72; }
+      .alert-item a { color: var(--accent); word-break: break-all; font-size: 12px; }
+      .why { font-size: 12.5px; color: var(--dim); margin-top: 5px; }
+      .stages { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+      .stage { font-size: 11.5px; padding: 4px 9px; border-radius: 7px; background: var(--panel2); border: 1px solid var(--line); color: var(--dim); }
+      .stage b { color: var(--ink); font-weight: 600; }
+      details { margin-top: 14px; }
+      summary { cursor: pointer; color: var(--dim); font-size: 13px; }
+      pre {
+        background: #0b111b; border: 1px solid var(--line); border-radius: 10px; padding: 12px;
+        overflow: auto; font-size: 12px; max-height: 460px; color: #cfe0f5;
+      }
+      ul { margin: 8px 0 0; padding-left: 18px; }
+      li { font-size: 13px; color: var(--dim); margin: 3px 0; }
+      .empty { color: var(--dim); font-size: 13.5px; }
+      a { color: var(--accent); }
+      @media (max-width: 560px) { form { flex-direction: column; } .big { font-size: 24px; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>WeatherGPT</h1>
+      <span class="tag">grounded retrieval · Open-Meteo weather + NDMA SACHET official alerts · no LLM phrasing yet (Phase 4)</span>
+      <span class="pill p-dim" id="health">checking /health …</span>
+    </header>
+
+    <main>
+      <form id="f">
+        <input type="text" id="q" autocomplete="off"
+               placeholder="Ask about weather or alerts, e.g. “Is there any weather alert for Mayurbhanj today?”" />
+        <button id="go" type="submit">Ask</button>
+      </form>
+
+      <div class="chips" id="chips"></div>
+
+      <div id="out"></div>
+    </main>
+
+    <script>
+      // ---- Demo scenarios the judges asked for, one click each -------------------------------
+      const SCENARIOS = [
+        ["Nagpur · live now", "What is the weather in Nagpur right now?"],
+        ["Pune · rain tomorrow", "Will it rain in Pune tomorrow?"],
+        ["Mayurbhanj · live alert", "Is there any weather alert for Mayurbhanj today?"],
+        ["Pune · checked, none relevant", "Is there any weather alert for Pune today?"],
+        ["Ahmedabad · must not attach", "Is there any weather alert for Ahmedabad today?"],
+        ["Springfield · clarify", "What is the weather in Springfield?"],
+        ["Xylophoneistan · abstain", "What is the weather in Xylophoneistan?"],
+      ];
+
+      const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+      const el = (id) => document.getElementById(id);
+      const pill = (txt, cls) => `<span class="pill ${cls}">${esc(txt)}</span>`;
+
+      // Backend owns every judgement; here we only pick a colour for `status`/`alert_state`.
+      const STATUS_PILL = {
+        grounded: pill("grounded evidence", "p-ok"),
+        clarify: pill("needs clarification", "p-warn"),
+        abstain: pill("abstained — no verifiable evidence", "p-bad"),
+        error: pill("internal error", "p-bad"),
+      };
+      const ALERT_PILL = {
+        checked: pill("SACHET checked", "p-ok"),
+        unavailable: pill("alert source UNAVAILABLE ≠ no alert", "p-bad"),
+        not_checked: pill("alerts not checked", "p-dim"),
+      };
+
+      const fmt = (v, unit = "") => (v === null || v === undefined ? "—" : `${esc(v)}${unit}`);
+      const time = (v) => (v ? esc(String(v).replace("T", " ").replace(".000Z", "Z")) : "—");
+
+      function kv(rows) {
+        return `<div class="kv">${rows.filter((r) => r).map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join("")}</div>`;
+      }
+
+      function renderAlertItem(a, expired = false) {
+        const rel = a.relevance || {};
+        return `<div class="alert-item ${expired ? "expired" : ""}">
+          <div><b>${esc(a.event || "Untitled official alert")}</b>
+            ${a.severity ? pill(a.severity, a.severity === "Extreme" || a.severity === "Severe" ? "p-bad" : "p-warn") : ""}
+            ${a.urgency ? pill("urgency " + a.urgency, "p-dim") : ""}
+            ${a.certainty ? pill(a.certainty, "p-dim") : ""}
+            ${pill(a.validity || "unknown", a.validity === "active" ? "p-official" : "p-dim")}
+          </div>
+          <div style="margin-top:6px;font-size:13.5px">${esc(a.headline || "(no headline published)")}</div>
+          ${a.area_desc ? `<div class="why">area: ${esc(a.area_desc)}</div>` : ""}
+          <div class="why">window ${time(a.effective_at)} → ${time(a.expires_at)}${a.expiry_missing ? " · expiry not published" : ""} · ${esc(a.validity_reason || "")}</div>
+          <div class="why">why this applies to you: <b>${esc(rel.reason || "—")}</b>${rel.geometry_available ? " · geometry used" : " · no geometry in source"}</div>
+          <div class="why">${esc(a.sender || a.author_name || "")}${a.lgd_district_codes && a.lgd_district_codes.length ? " · LGD " + esc(a.lgd_district_codes.join(",")) : ""}</div>
+          ${a.raw_source_url ? `<a href="${esc(a.raw_source_url)}" target="_blank" rel="noopener">open the CAP record ↗</a>` : ""}
+        </div>`;
+      }
+
+      // Built as a function on purpose: the equivalent nested template literal inside a nested
+      // ternary is unreadable and is what silently broke this page once already.
+      function weatherCard(w, ev) {
+        if (!w || (!w.current && !w.today)) {
+          const why = ((ev.validation && ev.validation.failures) || []).join("; ") || ev.abstain_reason || "";
+          return `<div class="card"><h2>Weather</h2><div class="empty">No weather block — retrieval was skipped or the upstream failed. ${esc(why)}</div></div>`;
+        }
+        const cur = w.current || {};
+        const head = cur.temperature_c === undefined || cur.temperature_c === null
+          ? `<div class="empty">No current-conditions block for this timeframe.</div>`
+          : `<div class="big">${fmt(cur.temperature_c, " °C")}</div>
+             <div class="note">${esc(cur.condition || "")}${cur.apparent_temperature_c != null ? ` · feels ${fmt(cur.apparent_temperature_c, "°C")}` : ""}${cur.wind_speed_kmh != null ? ` · wind ${fmt(cur.wind_speed_kmh, " km/h")}` : ""}${cur.precipitation_mm != null ? ` · precip ${fmt(cur.precipitation_mm, " mm")}` : ""}${cur.humidity_pct != null ? ` · humidity ${fmt(cur.humidity_pct, "%")}` : ""}</div>
+             <div class="note">source local time <b>${time(cur.time)}</b> · retrieved ${time(w.retrieved_at_utc)} UTC · model grid ${fmt(w.grid_latitude)}, ${fmt(w.grid_longitude)}${w.elevation_m != null ? ` @${fmt(w.elevation_m, " m")}` : ""}</div>`;
+        const days = [w.today, w.tomorrow, w.target_day].filter(Boolean).map((d) => `<div class="note" style="color:var(--ink)"><b>${esc(d.label || d.date)}</b> ${fmt(d.precipitation_probability_max_pct, "% rain prob.")} · ${fmt(d.precipitation_sum_mm, " mm")} · ${fmt(d.temperature_min_c, "°C")}→${fmt(d.temperature_max_c, "°C")}${d.condition ? " · " + esc(d.condition) : ""} ${d.is_forecast ? pill("forecast", "p-dim") : pill("not a forecast", "p-dim")}</div>`).join("");
+        const url = w.request_url ? `<div class="why"><a href="${esc(w.request_url)}" target="_blank" rel="noopener">exact API call the numbers came from ↗</a></div>` : "";
+        return `<div class="card"><h2>Weather · ${esc(w.provider || "—")} (${esc(w.kind || "—")}${w.requested_timeframe ? " · " + esc(w.requested_timeframe) : ""})</h2>
+          ${head}${days}${url}
+          ${w.kind === "live" ? `<div class="note">Current values are the provider’s own now-updated model/observation blend, sampled on a 15-minute interval — not a station reading.</div>` : ""}
+        </div>`;
+      }
+
+      function render(data) {
+        const ev = data.evidence || {};
+        const w = ev.weather || {};
+        const cur = w.current || {};
+        const loc = ev.location || {};
+        const alerts = ev.alerts || {};
+        const req = ev.request || {};
+        const val = ev.validation || {};
+        const out = [];
+
+        // 1) headline state line — status + alert state, both from the backend
+        out.push(
+          `<div class="banner">${STATUS_PILL[ev.status] || pill(ev.status || "no status", "p-dim")}
+            ${ALERT_PILL[ev.alert_state] || pill("alerts: " + (ev.alert_state || "—"), "p-dim")}
+            ${ev.evidence_quality ? pill("Evidence Quality " + ev.evidence_quality, "p-ok") : pill("Evidence Quality: Phase 3", "p-dim")}
+            ${ev.risk ? pill("travel risk " + ev.risk, "p-warn") : pill("Advisory: Phase 3", "p-dim")}
+            <span class="note" style="margin:0">${esc(req.message || "")} · intent ${esc(req.intent || "—")} · ${esc(req.timeframe || "—")}</span>
+          </div>`
+        );
+        // 1b) the Phase 4 answer card — an explanation of the evidence above, with the verifier's
+        // verdict attached, so a reader can see at a glance whether a model wrote it and whether the
+        // grounding checks passed. Never shown as an authority of its own.
+        const ans = data.answer || null;
+        if (ans && ans.text) {
+          const g = ans.grounding || {};
+          const origin =
+            ans.origin === "groq_llm"
+              ? pill("answer: Groq, grounded", "p-ok")
+              : pill("answer: deterministic (LLM not used or rejected)", "p-dim");
+          const verdict = g.verified
+            ? pill("grounding: verified", "p-ok")
+            : pill("grounding: NOT verified", "p-bad");
+          const numbers =
+            `checked ${g.numbers_checked || 0} number claim(s) against the evidence` +
+            ((g.numbers_rejected || []).length
+              ? ` · rejected: ${esc((g.numbers_rejected || []).join(", "))}`
+              : " · none rejected");
+          const attempts = g.attempts
+            ? `${g.attempts} model attempt(s)${g.regenerated ? " · regenerated once after the verifier's complaints" : ""}`
+            : "no model attempt";
+          out.push(`<div class="card" style="margin-top:12px"><h2>Answer</h2>
+            <div style="font-size:15.5px">${esc(ans.text)}</div>
+            <div class="why">credited source: <b>${esc(ans.source || "—")}</b> · as of
+              ${time(ans.timestamp)} · risk <b>${esc(ans.risk || "—")}</b> · evidence quality
+              <b>${esc(ans.evidence_quality || "—")}</b></div>
+            <div style="margin-top:7px">${origin} ${verdict}
+              ${pill("llm: " + (g.llm_status || "—"), "p-dim")}
+              ${ans.alert_mentioned ? pill("active alert mentioned", "p-official") : ""}</div>
+            <div class="note">${numbers} · ${attempts}</div>
+            ${(g.failures || []).length
+              ? `<ul>${(g.failures || []).map((f) => `<li class="why">${esc(f)}</li>`).join("")}</ul>`
+              : ""}
+            <div class="note">This sentence only explains the evidence below. Risk, evidence quality
+              and alert status are decided by the deterministic layers; the verifier — not the model —
+              decides whether its wording may be shown at all.</div>
+          </div>`);
+        }
+
+        if (ev.clarification) out.push(`<div class="card" style="margin-top:12px">${esc(ev.clarification)}</div>`);
+        if (ev.abstain_reason) out.push(`<div class="card" style="margin-top:12px;color:var(--bad)">${esc(ev.abstain_reason)}</div>`);
+        if ((ev.validation && ev.validation.failures || []).length) {
+          out.push(`<div class="card" style="margin-top:12px"><h2>Why this was not trusted</h2><ul>${ev.validation.failures.map((x) => `<li style="color:var(--bad)">${esc(x)}</li>`).join("")}</ul></div>`);
+        }
+
+        // 2) location
+        out.push(`<div class="grid">
+          <div class="card"><h2>Location (resolved)</h2>
+            ${kv([
+              ["place", `<b>${esc(loc.name || "—")}</b>`],
+              ["admin", esc([loc.admin2, loc.admin1, loc.country].filter(Boolean).join(" · ") || "—")],
+              ["coords", `${fmt(loc.latitude)}, ${fmt(loc.longitude)}`],
+              ["clock", `${esc(loc.timezone || "—")}${loc.utc_offset_seconds == null ? "" : ` (UTC${(loc.utc_offset_seconds / 3600 >= 0 ? "+" : "") + loc.utc_offset_seconds / 3600})`}`],
+              ["population", fmt(loc.population)],
+              ["geocoder id", fmt(loc.geonames_id || "—") + (loc.feature_code ? ` (${esc(loc.feature_code)})` : "")],
+            ])}
+            ${loc.resolution_note ? `<div class="note">${esc(loc.resolution_note)}</div>` : ""}
+          </div>
+
+          ${weatherCard(w, ev)}
+          </div>
+        </div>`);
+
+        // 3) alerts — the Phase 2 block
+        const items = alerts.items || [];
+        const expired = alerts.recent_expired || [];
+        out.push(`<div class="card" style="margin-top:14px"><h2>Official alerts · ${esc(alerts.source || "NDMA SACHET")} ${pill("authority: " + (alerts.authority || "—"), "p-official")}</h2>`);
+        if (alerts.state === "not_checked") {
+          out.push(`<div class="empty">Alerts were not consulted for this request (${esc(alerts.mode || "not_run")}). ${esc((alerts.notes || [])[0] || "")}</div>`);
+        } else if (alerts.state === "unavailable") {
+          out.push(`<div style="color:var(--bad)">SACHET could not be reached, so the alert status is <b>unknown</b> — this is not evidence that no alert exists.</div><div class="why">${esc(alerts.error || "")}</div>`);
+        } else if (items.length) {
+          out.push(items.map((a) => renderAlertItem(a)).join(""));
+        } else {
+          out.push(`<div class="empty">SACHET was checked and <b>no active official alert is verifiably tied to this place</b>. That is a checked result, not an absence of data or of risk.</div>`);
+        }
+        out.push(kv([
+          ["feeds", (alerts.feeds_considered || []).map((f) => esc(String(f).split("/").pop())).join(" + ") || "—"],
+          ["state feed", esc((alerts.state_feed_used || "").split("/").pop() || "—")],
+          ["checked at", time(alerts.checked_at_utc)],
+          ["counts", `in window ${fmt(alerts.items_in_feeds)} · CAP bodies opened ${fmt(alerts.details_fetched)} · not relevant ${fmt(alerts.rejected_not_relevant)} · uncertain ${fmt(alerts.rejected_uncertain)} · stale ${fmt(alerts.rejected_stale)} · dup ${fmt(alerts.rejected_duplicate)} · ${fmt(alerts.duration_ms, " ms")}`],
+          ["mode", esc(alerts.mode || "—") + (alerts.mode === "fixture_replay" ? " — recorded replay, NOT live data" : "")],
+        ]));
+        if (expired.length) {
+          out.push(`<div class="note">${expired.length} alert(s) naming this area had already expired and are shown for transparency only:</div>`);
+          out.push(expired.slice(0, 2).map((a) => renderAlertItem(a, true)).join(""));
+        }
+        if ((alerts.notes || []).length) out.push(`<ul>${alerts.notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>`);
+        out.push(`</div>`);
+
+        // 4) provenance + validation + trace
+        out.push(`<div class="grid">
+          <div class="card"><h2>Sources &amp; authority</h2>
+            ${(ev.sources || []).map((s) => `<div style="margin-bottom:7px"><b>${esc(s.name)}</b> ${pill(s.type, "p-dim")} ${pill(s.authority, s.authority === "official" ? "p-official" : "p-dim")}<div class="why">${time(s.timestamp)} · <a href="${esc(s.url)}" target="_blank" rel="noopener">link ↗</a></div></div>`).join("")}
+          </div>
+          <div class="card"><h2>Validation</h2>
+            ${kv([["ok", String(val.ok)], ["sufficient", String(val.sufficient)], ["fresh", String(val.fresh)], ["alerts_valid", String(val.alerts_valid)]])}
+            ${(val.checks_run || []).length ? `<div class="why">checks: ${esc((val.checks_run || []).join(", "))}</div>` : ""}
+            ${(val.warnings || []).length ? `<ul>${val.warnings.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+            <div class="note">Validation, Evidence Quality and the advisory are computed from this evidence. ${ans ? "The answer above was generated from this exact payload and re-checked against it." : "No answer sentence was produced for this request."}</div>
+          </div>
+        </div>`);
+
+        const adv = ev.advisory;
+        if (adv) {
+          out.push(`<div class="card" style="margin-top:14px"><h2>Advisory · deterministic risk layer (no ML, no LLM)</h2>
+            <div style="font-size:15.5px">${esc(adv.headline)}</div>
+            ${adv.reason ? `<div class="why">${esc(adv.reason)}</div>` : ""}
+            ${(adv.factors || []).length ? `<ul>${adv.factors.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+            <div class="why">rules fired: <b>${esc((adv.rules_fired || []).join(", ") || "none")}</b>${(adv.alert_ids || []).length ? ` · cites ${esc(adv.alert_ids.join(", "))}` : " · cites no alert"}</div>
+            <div class="note">${esc(adv.disclaimer || "")}</div>
+          </div>`);
+        }
+        if (data.pipeline && data.pipeline.stages) {
+          out.push(`<div class="stages">${data.pipeline.stages.map((s) => `<span class="stage">${esc(s.stage)} <b>${esc(s.status)}</b></span>`).join("")}</div>`);
+        }
+        out.push(`<details><summary>raw Evidence JSON (exactly what the LLM is given — one message, no tools, no history)</summary><pre>${esc(JSON.stringify(data, null, 2))}</pre></details>`);
+        el("out").innerHTML = out.join("");
+      }
+
+      async function ask(message) {
+        el("go").disabled = true;
+        el("out").innerHTML = `<div class="banner"><span class="note" style="margin:0">retrieving live evidence…</span></div>`;
+        try {
+          const r = await fetch("/api/query", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message, include_pipeline: true }),
+          });
+          render(await r.json());
+        } catch (e) {
+          el("out").innerHTML = `<div class="card" style="color:var(--bad)">Backend unreachable: ${esc(e.message)} — is uvicorn running on this port?</div>`;
+        } finally {
+          el("go").disabled = false;
+        }
+      }
+
+      el("f").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const q = el("q").value.trim();
+        if (q) ask(q);
+      });
+      el("chips").innerHTML = SCENARIOS.map(([label, q], i) => `<span class="chip" data-i="${i}">${esc(label)}</span>`).join("");
+      el("chips").addEventListener("click", (e) => {
+        const c = e.target.closest(".chip");
+        if (!c) return;
+        const q = SCENARIOS[+c.dataset.i][1];
+        el("q").value = q;
+        ask(q);
+      });
+      fetch("/health").then((r) => r.json()).then((h) => {
+        el("health").textContent = `provider ${h.weather_provider} · SACHET ${h.alerts.enabled ? "on" : "off"} (≤${h.alerts.max_age_h}h, ${h.alerts.detail_limit} CAP/query) · llm ${h.llm.configured ? "key present" : "not configured"}`;
+        const sims = Object.entries(h.simulations || {}).filter(([, v]) => v && v !== 0).map(([k]) => k);
+        if (sims.length) el("health").textContent += ` · SIMULATING: ${sims.join(", ")}`;
+      }).catch(() => { el("health").textContent = "backend not reachable"; });
+    </script>
+  </body>
+</html>
