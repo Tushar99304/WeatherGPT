@@ -109,6 +109,10 @@ class WeatherBundle(BaseModel):
     """What the weather provider returned for this location/request."""
 
     provider: str = "open-meteo"
+    # Phase 5A (additive): which NWP/model actually produced these numbers, e.g. Open-Meteo's
+    # "best_match", an explicit OPEN_METEO_MODEL selection ("gfs_seamless", ...), or
+    # "reanalysis_archive" for historical calls. Empty for stub providers / older payloads.
+    model: str = ""
     kind: Literal["live", "historical"] = "live"
     requested_timeframe: Timeframe = "now"
     retrieved_at_utc: str = ""      # when OUR backend got it (freshness anchor)

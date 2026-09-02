@@ -74,13 +74,22 @@ LLM_TEMPERATURE = _f("LLM_TEMPERATURE", 0.0)   # 0: the explanation must be repr
 LLM_JSON_MODE = _b("LLM_JSON_MODE", True)      # response_format={"type":"json_object"}
 LLM_MAX_ATTEMPTS = _i("LLM_MAX_ATTEMPTS", 2)   # first answer + exactly ONE regeneration
 
-# ---------------------------------------------------------------- Weather source
-# IMD is the intended authoritative Indian source in the full architecture; access is
-# pending approval. Everything weather-related therefore goes through the WeatherProvider
-# interface in services/weather.py, so IMDProvider can be dropped in later untouched.
+# ---------------------------------------------------------------- Weather source (Phase 5A)
+# Every weather source goes through the WeatherProvider interface and the registry in
+# services/providers/. Only "open-meteo" is CURRENT/IMPLEMENTED. The keys "imd", "gfs" and
+# "wrf" are registered as ARCHITECTURE-READY STUBS: they are discoverable via the registry and
+# /health but raise the project's normal UpstreamError on fetch (-> abstain/fallback), so no live
+# data is ever faked. See services/providers/stubs.py and README §6.
 WEATHER_PROVIDER = _s("WEATHER_PROVIDER", "open-meteo")
 OPEN_METEO_FORECAST_URL = _s("OPEN_METEO_FORECAST_URL", "https://api.open-meteo.com/v1/forecast")
 OPEN_METEO_ARCHIVE_URL = _s("OPEN_METEO_ARCHIVE_URL", "https://archive-api.open-meteo.com/v1/archive")
+# Optional Open-Meteo NWP model selection (forecast endpoint `models=` param).
+#   "" (default) -> omit the param; Open-Meteo chooses "best_match".
+# Phase 5A exposes a SINGLE configurable model (it is NOT multi-model ensemble retrieval, which
+# is out of scope). e.g. OPEN_METEO_MODEL=gfs_seamless  / =ecmwf_ifs025 . Leave blank for default.
+# The active model is reported on WeatherBundle.model and in /health. Archive calls ignore it
+# (ERA5-style reanalysis carries its own model and does not accept a forecast `models=` param).
+OPEN_METEO_MODEL = _s("OPEN_METEO_MODEL", "")
 
 # ---------------------------------------------------------------- Geocoding
 OPEN_METEO_GEOCODING_URL = _s(

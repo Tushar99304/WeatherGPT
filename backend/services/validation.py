@@ -27,6 +27,24 @@ from backend.models import AlertsEvidence, Evidence, ForecastDay, ResolvedLocati
 
 UTC = dt.timezone.utc
 
+
+def reference_now() -> dt.datetime:
+    """The single wall clock for every time-based validation/quality judgement (aware UTC).
+
+    All date/freshness decisions must read time through HERE rather than calling
+    ``datetime.now()`` directly. It routes through ``services.weather._utc_now`` — the very
+    clock ``validate_freshness`` already uses for the provider-timestamp age, and the one the
+    test suites freeze (see the autouse ``_fixed_clock`` fixtures that monkeypatch
+    ``weather._utc_now``). Before Phase 5A, ``validate_labeling`` and the alert-only /
+    retrieval-age freshness paths in ``quality.py`` called ``datetime.now()`` themselves, so
+    their verdicts drifted with the real calendar day (the two date-skew test failures).
+    Production behaviour is unchanged: ``weather._utc_now()`` itself returns ``datetime.now(UTC)``.
+    """
+    from backend.services import weather as _weather
+
+    return _weather._utc_now()
+
+
 # WMO codes that mean "the weather itself is the hazard". Documented engineering heuristic for
 # the MVP: a coarse mapping of the codes Open-Meteo reports to a hazard flag. NOT an official
 # IMD classification, and not used to classify severity — severity comes from SACHET alerts.
@@ -240,7 +258,10 @@ def validate_labeling(
     warnings: List[str] = []
     if bundle is None:
         return None, ([] if _no_weather_is_fine(intent) else ["no weather block to label"]), warnings
-    now = now or dt.datetime.now(UTC)
+    # Route through the single reference clock (see reference_now): this check must agree with
+    # the frozen clock the freshness check uses, or a "today" block judged current by freshness
+    # can simultaneously be "in the past" by labelling — the Phase-3 date-skew bug.
+    now = now or reference_now()
     local_today = _local_date(now, bundle.api_utc_offset_seconds)
 
     if timeframe == "now":
@@ -337,7 +358,13 @@ def _present(ev: Evidence, field: str, timeframe: str = "now") -> bool:
     if field == "current_condition":
         return bool(w and w.current and (w.current.condition or w.current.weather_code is not None))
     if field == "weather_source":
-        return any(s.name == "Open-Meteo" and (s.timestamp or s.url) for s in ev.sources)
+        # Provider-agnostic: ANY comparable, non-geocoding weather source counts. Geocoding
+        # entries (type="geocoding") and official alerts are not weather evidence providers.
+        from backend.services.quality import COMPARABLE_SOURCE_TYPES
+
+        return any(
+            s.type in COMPARABLE_SOURCE_TYPES and (s.timestamp or s.url) for s in ev.sources
+        )
     if field == "day_date":
         day = answered_day(w, timeframe) if w else None
         return bool(day and day.date)
