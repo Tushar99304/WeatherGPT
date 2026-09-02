@@ -1,12 +1,13 @@
 <!doctype html>
 <!--
-  frontend/index.html — WeatherGPT MVP demo surface (built for Phase 2, deliberately minimal).
+  frontend/index.html — WeatherGPT demo surface (single file, no framework, no build step;
+  U1: official NDMA/SACHET alerts are surfaced first, before any model-weather summary).
 
-  Plain HTML/CSS/JS, no framework, no CDN, no build step: served straight from "/" by
-  backend/main.py (which already mounts ./frontend). Every number on this page is read from the
-  Evidence object the backend produced; nothing here is computed, phrased or invented client-side
-  beyond labels. Natural-language ANSWER phrasing is Phase 4 (Groq), and the Evidence Quality badge
-  is Phase 3 — both are shown as explicitly "not yet computed" instead of being faked.
+  Plain HTML/CSS/JS, no CDN: served straight from "/" by backend/main.py (which already mounts
+  ./frontend). Every number on this page is read from the Evidence object the backend produced;
+  nothing here is computed, phrased or invented client-side beyond labels and render order. The
+  alert banner only re-orders backend-decided fields (validity, severity, the verbatim CAP
+  instruction) — it never decides alert status on its own.
 
   Network calls are relative ("/api/...") so it works behind the preview proxy and on localhost.
 -->
@@ -68,6 +69,20 @@
       .kv b { font-weight: 600; color: var(--dim); }
       .big { font-size: 30px; font-weight: 700; line-height: 1.1; }
       .note { color: var(--dim); font-size: 12.5px; margin-top: 8px; }
+      .alert-official {
+        margin-top: 16px; padding: 14px 16px; border-radius: 12px;
+        border: 1px solid rgba(255,107,107,.55); border-left: 5px solid var(--bad);
+        background: linear-gradient(180deg, rgba(255,107,107,.10), rgba(255,107,107,.04));
+      }
+      .alert-official.moderate {
+        border-color: rgba(255,193,77,.50); border-left-color: var(--warn);
+        background: linear-gradient(180deg, rgba(255,193,77,.10), rgba(255,193,77,.04));
+      }
+      .alert-official h2 { margin: 0 0 6px; font-size: 13px; letter-spacing: .8px; text-transform: uppercase; }
+      .instr {
+        margin-top: 8px; padding: 8px 12px; border-left: 3px solid var(--official);
+        background: rgba(255,138,76,.08); border-radius: 0 8px 8px 0; font-size: 13.5px;
+      }
       .alert-item { border-left: 3px solid var(--official); padding: 10px 12px; margin: 10px 0; background: var(--panel2); border-radius: 0 8px 8px 0; }
       .alert-item.expired { border-left-color: var(--line); opacity: .72; }
       .alert-item a { color: var(--accent); word-break: break-all; font-size: 12px; }
@@ -91,7 +106,7 @@
   <body>
     <header>
       <h1>WeatherGPT</h1>
-      <span class="tag">grounded retrieval · Open-Meteo weather + NDMA SACHET official alerts · no LLM phrasing yet (Phase 4)</span>
+      <span class="tag">grounded weather answers · official NDMA SACHET alerts surfaced first · deterministic risk, verified phrasing</span>
       <span class="pill p-dim" id="health">checking /health …</span>
     </header>
 
@@ -117,6 +132,13 @@
         ["Ahmedabad · must not attach", "Is there any weather alert for Ahmedabad today?"],
         ["Springfield · clarify", "What is the weather in Springfield?"],
         ["Xylophoneistan · abstain", "What is the weather in Xylophoneistan?"],
+        // U1 disaster-oriented scenarios — answered by the SAME evidence/advisory pipeline;
+        // no disaster-prediction model, no invented thresholds (fog/heat codes as supplied).
+        ["Mumbai · heavy rain / flood", "Will there be heavy rain in Mumbai today?"],
+        ["Delhi · thunderstorm / lightning", "Are thunderstorms expected in Delhi today?"],
+        ["Chennai · strong winds", "Will there be strong winds in Chennai tomorrow?"],
+        ["Delhi · fog / visibility", "Is there fog in Delhi this morning?"],
+        ["Ahmedabad · heat today", "How hot is it in Ahmedabad right now?"],
       ];
 
       const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -143,6 +165,28 @@
         return `<div class="kv">${rows.filter((r) => r).map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join("")}</div>`;
       }
 
+      // U1: an active, location-verified NDMA/SACHET alert outranks every other card, so it is
+      // rendered FIRST — nobody should read a calm forecast ahead of a live official warning.
+      // Everything shown is already in the evidence object; this banner only re-orders it, and
+      // the official instruction is quoted verbatim (never paraphrased, never invented).
+      function renderOfficialBanner(active) {
+        const first = active[0];
+        const hot = first.severity === "Extreme" || first.severity === "Severe" || first.urgency === "Immediate";
+        return `<div class="alert-official${hot ? "" : " moderate"}">
+          <h2>${hot ? "⛔" : "⚠️"} official NDMA / SACHET alert active for this area
+            ${first.severity ? pill(first.severity, hot ? "p-bad" : "p-warn") : pill("official", "p-official")}
+            ${first.urgency ? pill("urgency " + first.urgency, first.urgency === "Immediate" ? "p-bad" : "p-dim") : ""}
+            ${active.length > 1 ? pill(active.length + " active alerts", "p-official") : ""}</h2>
+          ${active.map((a) => `<div style="margin-top:8px">
+            <div style="font-size:15px"><b>${esc(a.event || "official alert")}</b>${a.area_desc ? ` <span style="color:var(--dim)">· area: ${esc(a.area_desc)}</span>` : ""}</div>
+            ${a.headline ? `<div style="margin-top:3px;font-size:14px">“${esc(a.headline)}”</div>` : ""}
+            ${a.instruction ? `<div class="instr"><b>Official instruction</b> (${esc(a.sender || a.author_name || "issuing authority")}, quoted verbatim from the CAP record): “${esc(a.instruction)}”</div>` : ""}
+            <div class="why">${a.expires_at ? "valid until " + time(a.expires_at) : "validity window not published by the source"}${a.alert_id ? " · " + esc(a.alert_id) : ""}${a.raw_source_url ? ` · <a href="${esc(a.raw_source_url)}" target="_blank" rel="noopener">official CAP record ↗</a>` : ""}</div>
+          </div>`).join("")}
+          <div class="note" style="margin-top:10px">The text above is an official alert from NDMA SACHET, quoted from the CAP record. It outranks all model-weather interpretation on this page; WeatherGPT adds nothing to it and never replaces it.</div>
+        </div>`;
+      }
+
       function renderAlertItem(a, expired = false) {
         const rel = a.relevance || {};
         return `<div class="alert-item ${expired ? "expired" : ""}">
@@ -153,6 +197,8 @@
             ${pill(a.validity || "unknown", a.validity === "active" ? "p-official" : "p-dim")}
           </div>
           <div style="margin-top:6px;font-size:13.5px">${esc(a.headline || "(no headline published)")}</div>
+          ${a.description ? `<div class="why" style="color:var(--ink)">${esc(a.description)}</div>` : ""}
+          ${a.instruction ? `<div class="instr"><b>official instruction</b> (quoted verbatim from the CAP record — the issuing authority's words, not ours): “${esc(a.instruction)}”</div>` : ""}
           ${a.area_desc ? `<div class="why">area: ${esc(a.area_desc)}</div>` : ""}
           <div class="why">window ${time(a.effective_at)} → ${time(a.expires_at)}${a.expiry_missing ? " · expiry not published" : ""} · ${esc(a.validity_reason || "")}</div>
           <div class="why">why this applies to you: <b>${esc(rel.reason || "—")}</b>${rel.geometry_available ? " · geometry used" : " · no geometry in source"}</div>
@@ -191,6 +237,12 @@
         const req = ev.request || {};
         const val = ev.validation || {};
         const out = [];
+
+        // 0) U1 — active official alerts first. `validity` is decided by the backend
+        // (alerts.classify_validity), so "active" here is never a client-side guess: expired
+        // records live in alerts.recent_expired and can never reach this banner.
+        const activeItems = (alerts.items || []).filter((a) => a.validity === "active");
+        if (activeItems.length) out.push(renderOfficialBanner(activeItems));
 
         // 1) headline state line — status + alert state, both from the backend
         out.push(
@@ -240,6 +292,20 @@
           </div>`);
         }
 
+        // U1: "what WeatherGPT recommends" belongs next to the answer, not at the very bottom —
+        // still the same deterministic Advisory object (risk decided BEFORE any sentence is
+        // written), so this is a render-order change only, not a decision change.
+        const adv = ev.advisory;
+        if (adv) {
+          out.push(`<div class="card" style="margin-top:12px"><h2>What WeatherGPT recommends · deterministic risk layer (decided from validated evidence, no ML, no LLM)</h2>
+            <div style="font-size:15.5px">${esc(adv.headline)}</div>
+            ${adv.reason ? `<div class="why">${esc(adv.reason)}</div>` : ""}
+            ${(adv.factors || []).length ? `<ul>${adv.factors.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+            <div class="why">rules fired: <b>${esc((adv.rules_fired || []).join(", ") || "none")}</b>${(adv.alert_ids || []).length ? ` · cites ${esc(adv.alert_ids.join(", "))}` : " · cites no alert"}</div>
+            <div class="note">${esc(adv.disclaimer || "")}</div>
+          </div>`);
+        }
+
         if (ev.clarification) out.push(`<div class="card" style="margin-top:12px">${esc(ev.clarification)}</div>`);
         if (ev.abstain_reason) out.push(`<div class="card" style="margin-top:12px;color:var(--bad)">${esc(ev.abstain_reason)}</div>`);
         if ((ev.validation && ev.validation.failures || []).length) {
@@ -264,10 +330,11 @@
           </div>
         </div>`);
 
-        // 3) alerts — the Phase 2 block
+        // 3) alerts — the NDMA SACHET block (detail; the prominent banner is already at the top)
         const items = alerts.items || [];
         const expired = alerts.recent_expired || [];
-        out.push(`<div class="card" style="margin-top:14px"><h2>Official alerts · ${esc(alerts.source || "NDMA SACHET")} ${pill("authority: " + (alerts.authority || "—"), "p-official")}</h2>`);
+        out.push(`<div class="card" style="margin-top:14px"><h2>Official alerts · ${esc(alerts.source || "NDMA SACHET")} ${pill("authority: " + (alerts.authority || "—"), "p-official")}
+          ${activeItems.length ? pill(activeItems.length + " active", "p-bad") : ""}</h2>`);
         if (alerts.state === "not_checked") {
           out.push(`<div class="empty">Alerts were not consulted for this request (${esc(alerts.mode || "not_run")}). ${esc((alerts.notes || [])[0] || "")}</div>`);
         } else if (alerts.state === "unavailable") {
@@ -304,16 +371,6 @@
           </div>
         </div>`);
 
-        const adv = ev.advisory;
-        if (adv) {
-          out.push(`<div class="card" style="margin-top:14px"><h2>Advisory · deterministic risk layer (no ML, no LLM)</h2>
-            <div style="font-size:15.5px">${esc(adv.headline)}</div>
-            ${adv.reason ? `<div class="why">${esc(adv.reason)}</div>` : ""}
-            ${(adv.factors || []).length ? `<ul>${adv.factors.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
-            <div class="why">rules fired: <b>${esc((adv.rules_fired || []).join(", ") || "none")}</b>${(adv.alert_ids || []).length ? ` · cites ${esc(adv.alert_ids.join(", "))}` : " · cites no alert"}</div>
-            <div class="note">${esc(adv.disclaimer || "")}</div>
-          </div>`);
-        }
         if (data.pipeline && data.pipeline.stages) {
           out.push(`<div class="stages">${data.pipeline.stages.map((s) => `<span class="stage">${esc(s.stage)} <b>${esc(s.status)}</b></span>`).join("")}</div>`);
         }

@@ -43,7 +43,7 @@ from backend.services import quality as quality_service
 from backend.services import validation
 from backend.services.http_client import UpstreamError
 
-APP_VERSION = "0.4.0-phase5a"  # P1 retrieval · P2 SACHET alerts · P3 validation+quality+advisory · P4 grounded LLM · P5A provider registry
+APP_VERSION = "0.5.0-u1"  # P1 retrieval · P2 SACHET alerts · P3 validation+quality+advisory · P4 grounded LLM · P5A provider registry · U1 disaster scenarios + official alert UX
 
 app = FastAPI(
     title="WeatherGPT MVP",

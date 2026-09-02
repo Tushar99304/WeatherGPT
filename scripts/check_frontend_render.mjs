@@ -2,10 +2,11 @@
  * scripts/check_frontend_render.mjs — offline render test for frontend/index.html.
  *
  * The page is one inline <script> with no build step, so it can be evaluated directly with a fake
- * `document`/`fetch`. Seven payloads cover the states that have broken this page before (missing
- * blocks, absent alerts, abstain/clarify) plus the Phase 4 answer card. Nothing here needs a
- * backend, a key, or the internet — the payloads are written out below so the assertions are
- * reviewable as text.
+ * `document`/`fetch`. The payloads cover the states that have broken this page before (missing
+ * blocks, absent alerts, abstain/clarify), the Phase 4 answer card, and the U1 official-alert UX
+ * (prominent banner first, verbatim instruction shown and attributed, expired records never
+ * rendered as active). Nothing here needs a backend, a key, or the internet — the payloads are
+ * written out below so the assertions are reviewable as text.
  *
  * Run:  node scripts/check_frontend_render.mjs
  */
@@ -95,13 +96,23 @@ function evidence(over = {}) {
 }
 const ALERT_ITEM = {
   alert_id: "IN-50", source: "NDMA SACHET", sender: "IMD Mumbai", event: "Heavy Rain",
-  headline: "Heavy rain alert for Pune district", area_desc: "Pune district of Maharashtra",
+  headline: "Heavy rain alert for Pune district",
+  description: "Heavy to very heavy rain likely over parts of Pune district.",
+  instruction: "Please follow SDMA guidelines.",
+  area_desc: "Pune district of Maharashtra",
   severity: "Severe", urgency: "Immediate", certainty: "Likely", validity: "active",
   effective_at: "2026-09-01T02:00:00Z", expires_at: "2026-09-01T05:00:00Z",
   validity_reason: "inside the published window",
   relevance: { status: "relevant", level: "L1_exact_locality", reason: "areaDesc names this place",
                geometry_available: false },
   raw_source_url: "https://sachet.ndma.gov.in/cap_public_website/FetchXMLFile?identifier=50",
+};
+// U1 boundary fixture: the same alert after its window. It must only ever render inside the
+// labelled transparency bucket — never in the active banner, never quoted as current guidance.
+const ALERT_EXPIRED = {
+  ...ALERT_ITEM, alert_id: "IN-OLD", validity: "expired", expires_at: "2026-09-01T04:00:00Z",
+  validity_reason: "expired at 2026-09-01T04:00:00Z",
+  instruction: "an expired instruction that must never render as active guidance",
 };
 
 const CASES = {
@@ -142,11 +153,24 @@ const CASES = {
       risk: "HIGH",
       advisory: { ...ADVISORY, risk_level: "HIGH", rules_fired: ["R1_severe_or_extreme_alert"],
                   alert_ids: ["IN-50"],
+                  factors: ["official Severe Heavy Rain from IMD Mumbai (valid until 2026-09-01T05:00:00Z)",
+                            'official instruction, quoted from IMD Mumbai: "Please follow SDMA guidelines."'],
                   headline: "Weather-related travel risk is HIGH based on an active official alert." },
     }),
     answer: answer("A Severe Heavy Rain alert is active for Pune; it is 25.8 °C right now.", {
       risk: "HIGH", alert_mentioned: true,
     }),
+    pipeline: { stages: [{ stage: "llm", status: "ok" }, { stage: "grounding", status: "ok" }] },
+  },
+  u1_expired_not_active: {
+    status: "grounded",
+    evidence: evidence({
+      alerts: { ...evidence().alerts, items: [], recent_expired: [ALERT_EXPIRED],
+                items_in_feeds: 1, details_fetched: 1 },
+    }),
+    answer: answer("No active official alert was verifiably tied to this location when SACHET was "
+                   + "checked; that is a checked result, not a promise that none exists. "
+                   + "It is 25.8 °C now."),
     pipeline: { stages: [{ stage: "llm", status: "ok" }, { stage: "grounding", status: "ok" }] },
   },
   unavailable: {
@@ -210,12 +234,35 @@ const EXPECT = {
                            /2 model attempt\(s\) · regenerated once after the verifier/,
                            /\[rejected model reply\]/],
   alert_active: [/authority: official/, /IN-50/, /Severe/, /active alert mentioned/,
-                 /R1_severe_or_extreme_alert/, /cites IN-50/],
+                 /R1_severe_or_extreme_alert/, /cites IN-50/,
+                 // ---- U1: the official alert is impossible to miss ----
+                 /official NDMA \/ SACHET alert active/,                    // the prominent banner
+                 /alert-official[\s\S]*class="banner"/,                     // rendered BEFORE the status row
+                 /urgency Immediate/,                                       // urgency shown
+                 /Please follow SDMA guidelines\./,                          // instruction quoted verbatim
+                 /Official instruction/,                                    // labelled as the authority's words
+                 /quoted verbatim from the CAP record/,                     // provenance of the quote
+                 /outranks all model-weather interpretation/,               // precedence is stated
+                 /What WeatherGPT recommends/,                              // recommendation beside the answer
+                 /official instruction, quoted from IMD Mumbai/],            // advisory factor quote
+  u1_expired_not_active: [/SACHET was checked/, /shown for transparency only/, /IN-OLD/,
+                 // the expired instruction may only appear AFTER the transparency label
+                 /shown for transparency only[\s\S]*expired instruction/],
   unavailable: [/SACHET could not be reached/, /not evidence that no alert exists/,
                 /risk <b>UNCERTAIN<\/b>/, /llm: upstream_error/],
   abstain: [/abstained|could not verify/i, /Why this was not trusted/, /provider timestamp is 361 min old/,
             /answer above was generated from this exact payload/],
   clarify: [/needs clarification|multiple places/i, /raw Evidence JSON/, /no answer sentence was produced/i],
+};
+
+// "must NOT appear" assertions (U1): an expired alert's banner must never exist, and nothing
+// must promise an active alert when the evidence holds none.
+const EXPECT_NOT = {
+  u1_expired_not_active: [/official NDMA \/ SACHET alert active/],
+  groq_ok: [/official NDMA \/ SACHET alert active/],
+  fallback_no_key: [/official NDMA \/ SACHET alert active/],
+  abstain: [/official NDMA \/ SACHET alert active/],
+  clarify: [/official NDMA \/ SACHET alert active/],
 };
 
 let failures = 0;
@@ -249,10 +296,12 @@ for (const [name, data] of Object.entries(CASES)) {
   const out = els.out.innerHTML || "";
   const leaked = ["undefined", "NaN", "[object Object]"].filter((t) => out.includes(t));
   const missing = EXPECT[name].filter((re) => !re.test(out));
-  const status = !missing.length && !leaked.length ? "OK " : "BAD";
+  const forbidden = (EXPECT_NOT[name] || []).filter((re) => re.test(out));
+  const status = !missing.length && !leaked.length && !forbidden.length ? "OK " : "BAD";
   console.log(`${name.padEnd(24)} ${status}  html=${String(out.length).padStart(6)} chars` +
               `${leaked.length ? `  leaked=${leaked.join(",")}` : ""}` +
-              `${missing.length ? `  missing=${missing.map(String).join(" , ")}` : ""}`);
+              `${missing.length ? `  missing=${missing.map(String).join(" , ")}` : ""}` +
+              `${forbidden.length ? `  forbidden=${forbidden.map(String).join(" , ")}` : ""}`);
   if (status === "BAD") failures++;
 }
 console.log(failures ? `FAILURES: ${failures}` : `ALL ${Object.keys(CASES).length} RENDER CASES OK`);

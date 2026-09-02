@@ -1,7 +1,8 @@
 # WeatherGPT — SIH26068 Minimal Working Demo
 
-**Status: Phases 1–4 complete and tested live; Phase 5A (provider registry + model metadata) added.
-171 tests, 157 of them offline.** The whole
+**Status: Phases 1–4 complete and tested live; Phase 5A (provider registry + model metadata) added;
+U1 (disaster scenarios + official alert UX) added — see `docs/U1_REPORT.md`.
+208 tests, 194 of them offline.** The whole
 pitch pipeline now runs: natural-language question → intent + location + timeframe → geocoding →
 live weather evidence → NDMA SACHET official alerts → validation → Evidence Quality → deterministic
 risk advisory → **grounded LLM explanation** → answer + source + timestamp, or a graceful
@@ -17,6 +18,15 @@ with every number, source, timestamp, alert and risk word in it.
 > Positioning (say this in the pitch): WeatherGPT is **not** a weather prediction model.
 > It is a **grounded conversational weather intelligence layer**. The LLM never becomes the
 > source of meteorological truth — every number comes from retrieved, validated evidence.
+
+**U1 (disaster scenarios + official alert UX).** An active, location-verified NDMA/SACHET alert
+now dominates the entire UX: the CAP `instruction` is surfaced verbatim and attributed (advisory
+factors + deterministic answer, so it needs no LLM key), the page leads with a prominent
+official-alert banner before any model-weather summary, and "What WeatherGPT recommends" (the
+deterministic advisory) sits directly under the answer. Disaster-oriented demo chips (heavy
+rain/flood, thunderstorm/lightning, strong winds, fog, heat) exercise the **existing**
+evidence/advisory pipeline — no new thresholds, no disaster-prediction model, and alerts that
+are expired, relevance-uncertain or window-unproven are still never presented as active.
 
 ---
 
@@ -86,13 +96,14 @@ python scripts/demo_phase4.py             # 7 grounding cases: accept / hallucin
 ## 2. Tests
 
 ```bash
-python -m pytest tests                 # 171 tests: 157 offline logic + 14 live network
+python -m pytest tests                 # 208 tests: 194 offline logic + 14 live network
 python -m pytest tests -m "not live"   # no internet needed (hotel Wi-Fi / judges' laptop)
 python -m pytest tests -v -k alerts    # Phase 2 only
 python -m pytest tests -v -k phase3    # Phase 3 (validation / quality / advisory), all offline
 python -m pytest tests -v -k phase4    # Phase 4 (grounding checks + every LLM failure mode), offline
 python -m pytest tests -v -k phase5a   # Phase 5A (provider registry + model metadata), all offline
-node scripts/check_frontend_render.mjs # 7 render cases for the answer card, no backend needed
+python -m pytest tests -v -k u1        # U1 (instruction surfacing, precedence, hazard scenarios), offline
+node scripts/check_frontend_render.mjs # 8 render cases for the page incl. the U1 alert UX, no backend needed
 python -m pytest tests -v -k geocoding # single area
 ```
 
@@ -367,6 +378,7 @@ weathergpt-mvp/
 ├── frontend/index.html         # single-file demo page (served at "/"), renders the Evidence object
 ├── tests/                      # offline logic tests + live smoke tests
 ├── docs/PLAN_48H.md            # phase plan, verified endpoint recon, grounding design
+├── docs/U1_REPORT.md           # U1: disaster scenarios + official alert UX (what/why/tests)
 ├── .env.example
 └── requirements.txt
 ```
