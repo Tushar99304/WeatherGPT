@@ -58,9 +58,24 @@ def test_alert_priority_rule_holds_on_whatever_sachet_published_today():
         assert ev.risk == "HIGH", f"active {severe_active[0].severity} alert did not raise the risk"
         assert "R1_active_severe_official_alert" in ev.advisory.rules_fired
         assert set(ev.advisory.alert_ids) <= {a.alert_id for a in ev.alerts.items}
+        assert any(aid in {a.alert_id for a in severe_active} for aid in ev.advisory.alert_ids)
         assert "weather-related travel risk is high" in ev.advisory.headline.lower()
     else:
-        assert ev.risk in {"LOW", "MEDIUM", "UNCERTAIN"}
+        # No Severe/Extreme (or Immediate) official alert is tied to this location. HIGH is still
+        # legitimate, but ONLY when a strong deterministic weather hazard drives it via R3 — never
+        # on an unverifiable or alert-based rationale. weather_hazards() returns
+        # List[Tuple[str, bool, str]] = (label, is_strong, evidence_quote); the bool is index 1.
+        from backend.services.advisory import weather_hazards
+
+        hazards = weather_hazards(ev)
+        strong_hazards = [h for h in hazards if h[1]]
+        if ev.risk == "HIGH":
+            assert strong_hazards, "HIGH with no severe official alert needs a strong weather hazard"
+            assert "R3_weather_hazard_strong" in ev.advisory.rules_fired
+        else:
+            assert ev.risk in {"LOW", "MEDIUM", "UNCERTAIN"}
+        # cited alert ids may only ever reference alerts actually attached to this evidence
+        assert set(ev.advisory.alert_ids) <= {a.alert_id for a in ev.alerts.items}
     assert ev.evidence_quality in {"HIGH", "MEDIUM", "LOW"}
 
 
