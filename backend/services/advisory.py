@@ -174,6 +174,14 @@ def advise(ev: Evidence) -> Advisory:
                 f"official {a.severity or 'unclassified'} {a.event or 'alert'} from {a.sender or a.author_name or 'NDMA SACHET'}"
                 f" (valid until {a.expires_at or 'not published'})"
             )
+            if a.instruction:
+                # U1: surface the authority's published instruction, quoted VERBATIM and
+                # attributed. It is never paraphrased (that could warp an official order) and
+                # never invented when the CAP record carries none.
+                factors.append(
+                    f'official instruction, quoted from {a.sender or a.author_name or "NDMA SACHET"}: '
+                    f'"{a.instruction.strip()}"'
+                )
         rules.append("R1_active_severe_official_alert" if raise_high else "R2_active_official_alert")
         if any_hazard:
             factors.extend(f"weather: {h[0]} — {h[2]}" for h in hazards)

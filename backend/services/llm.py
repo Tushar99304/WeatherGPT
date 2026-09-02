@@ -213,6 +213,17 @@ def _punct(text: str) -> str:
     return text + "." if text and not text.endswith((".", "!", "?")) else text
 
 
+def _safe_quote(text: str) -> str:
+    """An official text prepared for verbatim quoting inside our answer.
+
+    The words are NOT altered (a paraphrased instruction is no longer the authority's), but
+    whitespace is collapsed and inner double quotes become single ones, because the grounding
+    verifier strips quoted spans before judging wording — an unbalanced quote would let the
+    quote swallow prose this answer is responsible for.
+    """
+    return re.sub(r"\s+", " ", (text or "").strip()).replace('"', "'")
+
+
 def _fmt(value: Any) -> str:
     """Numbers are rendered exactly as the evidence holds them (°C to one decimal, mm as-is)."""
     if isinstance(value, bool):
@@ -343,12 +354,30 @@ def deterministic_payload(ev: Evidence) -> Dict[str, Any]:
     if items:
         lead = items[0]
         desc = " ".join(x for x in (lead.severity, lead.event) if x)
-        line = f"An official {desc} alert is active for {lead.area_desc or 'this area'}"
-        if lead.expires_at:
-            line += f" until {_stamp(lead.expires_at)}"
+        if lead.validity == "active":
+            line = f"An official {desc} alert is active for {lead.area_desc or 'this area'}"
+            if lead.expires_at:
+                line += f" until {_stamp(lead.expires_at)}"
+        else:
+            # U1 boundary: a relevant alert whose temporal window the source left unprovable
+            # (validity == "unknown", e.g. no expiry published) must NOT be sold as "active".
+            # Only alerts.py's classify_validity() may declare an alert active.
+            line = (
+                f"An official {desc} alert naming {lead.area_desc or 'this area'} was published, "
+                f"but the source does not prove it is active right now "
+                f"({_punct(lead.validity_reason or 'temporal window not published')[:-1].lower()})"
+            )
         line += ". "
         if lead.headline:
             line += _punct(lead.headline)
+        if lead.instruction:
+            # U1: the issuing authority's instruction, quoted VERBATIM (never paraphrased, never
+            # invented when absent). Attribution stays attached so it cannot read as our advice.
+            line += (
+                f" Official instruction from "
+                f"{lead.sender or lead.author_name or 'the issuing authority'}: "
+                f'"{_safe_quote(lead.instruction)}".'
+            )
         if len(items) > 1:
             line += f" {len(items)} verified official alerts are attached to this location."
         parts.append(line)
